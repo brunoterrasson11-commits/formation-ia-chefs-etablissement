@@ -1500,6 +1500,138 @@
     .scenario-axes { grid-template-columns: 1fr; }
     .swot-grid { grid-template-columns: 1fr; }
   }
+
+  /* ── CHARTE IA ── */
+  .charte-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .charte-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .charte-field input, .charte-field textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text);
+    background: #fff;
+  }
+  .charte-article {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 0.875rem;
+  }
+  .charte-article-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 16px;
+    font-weight: 600;
+    font-size: 13.5px;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+  }
+  .charte-article-header:hover { filter: brightness(1.08); }
+  .charte-article-body { padding: 10px 16px 14px; background: #fff; }
+  .charte-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 5px 0;
+    cursor: pointer;
+    border-bottom: 1px solid var(--gray-light);
+  }
+  .charte-option:last-of-type { border-bottom: none; }
+  .charte-option input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--purple);
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .charte-option-text { font-size: 13px; line-height: 1.55; color: var(--text); }
+  .charte-custom-toggle {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--purple);
+    cursor: pointer;
+    font-weight: 500;
+    display: inline-block;
+  }
+  .charte-custom-toggle:hover { text-decoration: underline; }
+  .charte-custom-area { display: none; margin-top: 6px; }
+  .charte-custom-area.open { display: block; }
+  .charte-custom-area textarea {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid var(--purple-light);
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-family: inherit;
+    min-height: 56px;
+    resize: vertical;
+  }
+  .charte-preview {
+    background: var(--cream);
+    border: 1px solid var(--purple-light);
+    border-radius: 8px;
+    padding: 1.5rem;
+    font-size: 13px;
+    line-height: 1.85;
+    white-space: pre-wrap;
+    color: var(--text);
+    max-height: 420px;
+    overflow-y: auto;
+    font-family: Georgia, serif;
+  }
+  .charte-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 1.25rem 0; }
+  .charte-actions .btn { flex: 1; min-width: 140px; }
+  .charte-signataires { margin-top: 0.5rem; }
+  .charte-sig-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 7px;
+    align-items: center;
+  }
+  .charte-sig-row input {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-family: inherit;
+  }
+  .charte-sig-remove {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--muted);
+    cursor: pointer;
+    padding: 4px 9px;
+    font-size: 13px;
+    line-height: 1;
+  }
+  .charte-sig-remove:hover { color: var(--red); border-color: var(--red); }
+  @media print {
+    .sidebar, .right-panel, header, .module-nav, .charte-actions,
+    .charte-custom-toggle, .callout { display: none !important; }
+    .app-layout { grid-template-columns: 1fr !important; }
+    .charte-preview { max-height: none !important; border: none; background: none; padding: 0; }
+  }
 </style>
 </head>
 <body>
@@ -1569,6 +1701,14 @@
       <div class="nav-item" data-screen="synthese" onclick="navigate('synthese')">
         <span class="nav-number">⬡</span>
         <span class="nav-label">Mon Tableau de Bord</span>
+        <span class="nav-dot"></span>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Atelier</div>
+      <div class="nav-item" data-screen="charte" onclick="navigate('charte')">
+        <span class="nav-number">📜</span>
+        <span class="nav-label">Charte IA</span>
         <span class="nav-dot"></span>
       </div>
     </div>
@@ -3213,6 +3353,74 @@ Contraintes :
       </div>
     </div>
 
+    <!-- ══ CHARTE IA ══ -->
+    <div id="screen-charte" class="screen">
+      <div class="module-header" data-number="📜">
+        <div class="module-tag">Atelier pratique</div>
+        <h1 class="module-title">Générateur de Charte IA</h1>
+        <p class="module-desc">Construisez la charte d'usage de l'IA de votre établissement — cochez les engagements, personnalisez les formulations, ajoutez les signataires, puis exportez.</p>
+      </div>
+      <div class="module-body">
+
+        <div class="callout info">
+          <div class="callout-title">Comment utiliser cet atelier</div>
+          <p>Cochez les engagements pertinents pour votre contexte, personnalisez les formulations si besoin, renseignez les informations institutionnelles, puis exportez en PDF ou Word. <strong>Rien n'est sauvegardé automatiquement</strong> — exportez avant de quitter la page.</p>
+        </div>
+
+        <!-- Infos établissement -->
+        <div class="section-title">📋 Informations institutionnelles</div>
+        <div class="charte-info-grid">
+          <div class="charte-field">
+            <label for="charte-nom">Nom de l'établissement</label>
+            <input type="text" id="charte-nom" placeholder="Ex : Lycée Victor Hugo" oninput="charteUpdate()">
+          </div>
+          <div class="charte-field">
+            <label for="charte-commune">Commune</label>
+            <input type="text" id="charte-commune" placeholder="Ex : Paris (75)" oninput="charteUpdate()">
+          </div>
+          <div class="charte-field">
+            <label for="charte-directeur">Directeur·trice / Principal·e</label>
+            <input type="text" id="charte-directeur" placeholder="Prénom Nom" oninput="charteUpdate()">
+          </div>
+          <div class="charte-field">
+            <label for="charte-date">Date d'adoption</label>
+            <input type="date" id="charte-date" oninput="charteUpdate()">
+          </div>
+        </div>
+
+        <!-- Articles -->
+        <div class="section-title">📄 Articles de la charte</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;">Cochez les engagements adaptés à votre établissement. Chaque article peut être enrichi d'une formulation personnalisée.</p>
+        <div id="charte-articles"></div>
+
+        <!-- Gouvernance -->
+        <div class="section-title" style="margin-top:2rem;">⚙️ Gouvernance</div>
+        <div class="charte-field" style="margin-bottom:1.5rem;">
+          <label for="charte-gouvernance">Composition du comité de pilotage</label>
+          <textarea id="charte-gouvernance" rows="3" placeholder="Ex : La direction, un représentant des enseignants, un représentant des parents d'élèves, le référent numérique…" style="resize:vertical;" oninput="charteUpdate()"></textarea>
+        </div>
+
+        <!-- Signataires -->
+        <div class="section-title">✍️ Signataires</div>
+        <div class="charte-signataires" id="charte-signataires-list"></div>
+        <button class="btn btn-secondary" onclick="charteAddSignataire()" style="margin-bottom:2rem;">+ Ajouter un·e signataire</button>
+
+        <!-- Actions export -->
+        <div class="section-title">🚀 Exporter la charte</div>
+        <div class="charte-actions">
+          <button class="btn btn-primary" onclick="chartePrint()">🖨️ Imprimer / PDF</button>
+          <button class="btn btn-secondary" onclick="charteExportWord()">📄 Exporter en Word</button>
+          <button class="btn btn-secondary" id="charte-copy-btn" onclick="charteCopy(this)">📋 Copier le texte</button>
+          <button class="btn btn-secondary" onclick="charteReset()">↺ Réinitialiser</button>
+        </div>
+
+        <!-- Aperçu -->
+        <div class="section-title">👁 Aperçu de la charte</div>
+        <div class="charte-preview" id="charte-preview">Remplissez les informations et cochez des engagements pour générer l'aperçu…</div>
+
+      </div>
+    </div>
+
   </main>
 
   <!-- ══ RIGHT PANEL ══ -->
@@ -3404,6 +3612,26 @@ Contraintes :
       <div class="rp-card">
         <div class="rp-label">📥 Export rapide</div>
         <button onclick="exportNotes()" style="width:100%;padding:8px;background:var(--purple);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;">↳ Télécharger mes notes</button>
+      </div>
+    </div>
+
+    <!-- Charte IA -->
+    <div class="rp-section" data-module="charte">
+      <div class="rp-card">
+        <div class="rp-label">📊 Engagements cochés</div>
+        <div class="rp-value" id="rp-charte-count">0</div>
+        <div class="rp-sub">sur 32 disponibles</div>
+        <div class="rp-bar-wrap" style="margin-top:8px;"><div class="rp-bar-fill" id="rp-charte-bar" style="width:0%"></div></div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">⚡ Actions rapides</div>
+        <button onclick="chartePrint()" style="width:100%;margin-bottom:6px;padding:7px;background:var(--purple);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;">🖨️ Imprimer / PDF</button>
+        <button onclick="charteExportWord()" style="width:100%;margin-bottom:6px;padding:7px;background:#2980b9;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;">📄 Exporter Word</button>
+        <button onclick="charteCopy()" style="width:100%;padding:7px;background:#27ae60;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;">📋 Copier le texte</button>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">💡 Conseil d'usage</div>
+        <p style="font-size:11.5px;line-height:1.7;margin:0;color:var(--text);">Sélectionnez au moins 4 articles. Adaptez les formulations à la réalité de votre établissement avant de soumettre la charte au conseil d'administration.</p>
       </div>
     </div>
 
@@ -3838,11 +4066,257 @@ function clearAll() {
   navigate('welcome');
 }
 
+// ── CHARTE IA ──
+const CHARTE_ARTICLES = [
+  { id:'a1', title:'Art. 1 — Transparence et traçabilité', color:'#2980b9', icon:'👁',
+    options:[
+      "Tout usage d'un outil IA dans une production pédagogique ou administrative doit être mentionné.",
+      "L'outil utilisé, la date et la nature de l'aide apportée doivent être précisés.",
+      "Les élèves indiquent le recours à l'IA dans leurs travaux rendus.",
+      "Les enseignants informent les familles des outils IA utilisés en classe."
+    ]},
+  { id:'a2', title:'Art. 2 — Intégrité académique', color:'#8e44ad', icon:'🎓',
+    options:[
+      "L'IA ne se substitue pas à l'acte d'apprendre ; elle le facilite.",
+      "Il est interdit de soumettre une production entièrement générée par IA sans réécriture personnelle.",
+      "La correction des travaux reste une responsabilité humaine.",
+      "Les enseignants demeurent responsables du contenu pédagogique, même assisté par IA."
+    ]},
+  { id:'a3', title:'Art. 3 — Protection des données personnelles', color:'#c0392b', icon:'🔒',
+    options:[
+      "Aucune donnée personnelle d'élève n'est saisie dans un outil IA non conforme au RGPD.",
+      "Seuls les outils validés par le référent numérique ou la DSI académique sont utilisés.",
+      "Les données de santé, de situation familiale ou de résultats scolaires ne sont jamais transmises à une IA.",
+      "Toute suspicion de fuite de données est signalée au référent numérique."
+    ]},
+  { id:'a4', title:'Art. 4 — Esprit critique et responsabilité', color:'#e67e22', icon:'🧠',
+    options:[
+      "Chaque membre de la communauté est responsable de vérifier les contenus générés par l'IA.",
+      "Toute production assistée par IA fait l'objet d'une relecture humaine critique avant usage.",
+      "Les sources citées par l'IA sont vérifiées systématiquement.",
+      "La sensibilisation aux biais algorithmiques est intégrée aux pratiques pédagogiques."
+    ]},
+  { id:'a5', title:'Art. 5 — Inclusion et équité', color:'#27ae60', icon:'🤝',
+    options:[
+      "Les pratiques IA ne doivent pas créer ou aggraver une fracture numérique entre élèves.",
+      "Les outils IA utilisés en classe sont accessibles gratuitement ou sans compte obligatoire.",
+      "La priorité est donnée aux outils accessibles aux élèves en situation de handicap.",
+      "L'établissement veille au respect de la diversité culturelle et linguistique dans les usages IA."
+    ]},
+  { id:'a6', title:'Art. 6 — Sobriété et durabilité numérique', color:'#16a085', icon:'🌱',
+    options:[
+      "Le recours à l'IA est délibéré et doit être justifié pédagogiquement.",
+      "Chaque enseignant conserve le droit de refuser un outil IA non justifié dans ses pratiques.",
+      "Les élèves sont sensibilisés à l'impact écologique du numérique et de l'IA.",
+      "Les ressources IA produites dans l'établissement sont mutualisées."
+    ]},
+  { id:'a7', title:'Art. 7 — Primauté de la relation humaine', color:'#2c3e50', icon:'💛',
+    options:[
+      "L'IA soutient la relation d'apprentissage mais ne se substitue pas aux interactions humaines.",
+      "L'usage de l'IA vise à enrichir les activités sans remplacer l'accompagnement individualisé.",
+      "Les projets collaboratifs entre élèves restent au cœur des pratiques pédagogiques.",
+      "L'accompagnement des enseignants se fait sans injonction de performance numérique."
+    ]},
+  { id:'a8', title:'Art. 8 — Gouvernance et révision', color:'#2ecc71', icon:'⚙️',
+    options:[
+      "La présente charte fait l'objet d'une révision annuelle.",
+      "Un comité de pilotage composé de représentants de la communauté éducative est constitué.",
+      "Les familles sont informées de la charte via l'ENT ou par courrier en début d'année scolaire.",
+      "Le non-respect de la charte peut faire l'objet d'une procédure disciplinaire adaptée."
+    ]}
+];
+
+function charteInit() {
+  const container = document.getElementById('charte-articles');
+  if (!container) return;
+  container.innerHTML = CHARTE_ARTICLES.map(art => `
+    <div class="charte-article">
+      <div class="charte-article-header" style="background:${art.color}" onclick="charteToggleArticle('body-${art.id}',this)">
+        <span>${art.icon}</span>
+        <span>${art.title}</span>
+        <span style="margin-left:auto;font-weight:300;font-size:12px;">▼</span>
+      </div>
+      <div class="charte-article-body" id="body-${art.id}">
+        ${art.options.map((opt,i) => `
+          <label class="charte-option">
+            <input type="checkbox" id="chk-${art.id}-${i}" onchange="charteUpdate()">
+            <span class="charte-option-text">${opt}</span>
+          </label>`).join('')}
+        <div class="charte-custom-toggle" onclick="charteToggleCustom('custom-${art.id}',this)">✏️ Ajouter ma propre formulation</div>
+        <div class="charte-custom-area" id="custom-${art.id}">
+          <textarea placeholder="Votre formulation personnalisée pour cet article…" oninput="charteUpdate()"></textarea>
+        </div>
+      </div>
+    </div>`).join('');
+  charteAddSignataire();
+}
+
+function charteToggleArticle(bodyId, header) {
+  const body = document.getElementById(bodyId);
+  const arrow = header.querySelector('span:last-child');
+  const hidden = body.style.display === 'none';
+  body.style.display = hidden ? '' : 'none';
+  arrow.textContent = hidden ? '▼' : '▶';
+}
+
+function charteToggleCustom(areaId, toggle) {
+  const area = document.getElementById(areaId);
+  area.classList.toggle('open');
+  toggle.textContent = area.classList.contains('open') ? '✏️ Masquer' : '✏️ Ajouter ma propre formulation';
+}
+
+let charteSignataireCount = 0;
+function charteAddSignataire() {
+  charteSignataireCount++;
+  const list = document.getElementById('charte-signataires-list');
+  const row = document.createElement('div');
+  row.className = 'charte-sig-row';
+  row.innerHTML = `
+    <input type="text" placeholder="Prénom Nom" oninput="charteUpdate()">
+    <input type="text" placeholder="Rôle (ex : Principal·e)" style="flex:1.4" oninput="charteUpdate()">
+    <button class="charte-sig-remove" onclick="charteRemoveSignataire(this)">✕</button>`;
+  list.appendChild(row);
+}
+
+function charteRemoveSignataire(btn) {
+  btn.closest('.charte-sig-row').remove();
+  charteUpdate();
+}
+
+function charteBuildText() {
+  const nom = document.getElementById('charte-nom').value.trim() || '[Nom de l\'établissement]';
+  const commune = document.getElementById('charte-commune').value.trim() || '[Commune]';
+  const directeur = document.getElementById('charte-directeur').value.trim() || '[Directeur·trice / Principal·e]';
+  const dateVal = document.getElementById('charte-date').value;
+  const dateStr = dateVal
+    ? new Date(dateVal + 'T12:00:00').toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' })
+    : '[Date d\'adoption]';
+  const gouvernance = document.getElementById('charte-gouvernance').value.trim();
+
+  const lines = [];
+  lines.push('CHARTE D\'USAGE DE L\'INTELLIGENCE ARTIFICIELLE');
+  lines.push(nom.toUpperCase() + ' — ' + commune);
+  lines.push('═'.repeat(55));
+  lines.push('');
+  lines.push('Préambule');
+  lines.push('─'.repeat(40));
+  lines.push('L\'établissement ' + nom + ', situé à ' + commune + ', reconnaît que l\'intelligence artificielle représente à la fois une opportunité pédagogique et un défi éthique. La présente charte encadre les usages de l\'IA au sein de notre communauté éducative, dans le respect des valeurs de l\'école républicaine.');
+  lines.push('');
+
+  let checkedCount = 0;
+  CHARTE_ARTICLES.forEach(art => {
+    const artLines = [];
+    art.options.forEach((opt, i) => {
+      const chk = document.getElementById('chk-' + art.id + '-' + i);
+      if (chk && chk.checked) { artLines.push('  • ' + opt); checkedCount++; }
+    });
+    const customArea = document.getElementById('custom-' + art.id);
+    const customText = customArea ? (customArea.querySelector('textarea')?.value.trim() || '') : '';
+    if (artLines.length > 0 || customText) {
+      lines.push(art.title.replace('🎓','').replace('👁','').replace('🔒','').replace('🧠','').replace('🤝','').replace('🌱','').replace('💛','').replace('⚙️','').trim());
+      lines.push('─'.repeat(40));
+      artLines.forEach(l => lines.push(l));
+      if (customText) lines.push('  • ' + customText);
+      lines.push('');
+    }
+  });
+
+  if (gouvernance) {
+    lines.push('Gouvernance et comité de pilotage');
+    lines.push('─'.repeat(40));
+    lines.push(gouvernance);
+    lines.push('');
+  }
+
+  const rows = document.querySelectorAll('#charte-signataires-list .charte-sig-row');
+  const sigs = [];
+  rows.forEach(row => {
+    const inputs = row.querySelectorAll('input');
+    const name = inputs[0]?.value.trim();
+    const role = inputs[1]?.value.trim();
+    if (name || role) sigs.push({ name: name || '…', role });
+  });
+  if (sigs.length > 0) {
+    lines.push('Signataires');
+    lines.push('─'.repeat(40));
+    sigs.forEach(s => lines.push(s.name + (s.role ? ' — ' + s.role : '')));
+    lines.push('');
+  }
+
+  lines.push('Adopté le ' + dateStr);
+  lines.push('Direction : ' + directeur);
+
+  // update right panel bar
+  const rpCount = document.getElementById('rp-charte-count');
+  if (rpCount) rpCount.textContent = checkedCount;
+  const rpBar = document.getElementById('rp-charte-bar');
+  if (rpBar) rpBar.style.width = Math.round(checkedCount / 32 * 100) + '%';
+
+  return lines.join('\n');
+}
+
+function charteUpdate() {
+  const preview = document.getElementById('charte-preview');
+  if (preview) preview.textContent = charteBuildText();
+}
+
+function chartePrint() {
+  charteUpdate();
+  const content = (document.getElementById('charte-preview')?.textContent || '').replace(/</g,'&lt;');
+  const w = window.open('', '_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Charte IA</title>
+    <style>body{font-family:Georgia,serif;max-width:700px;margin:40px auto;font-size:13.5pt;line-height:1.9;color:#111;}
+    pre{white-space:pre-wrap;font-family:Georgia,serif;}@media print{body{margin:20px;}}</style>
+    </head><body><pre>${content}</pre></body></html>`);
+  w.document.close();
+  w.focus();
+  setTimeout(() => w.print(), 300);
+}
+
+function charteExportWord() {
+  charteUpdate();
+  const content = (document.getElementById('charte-preview')?.textContent || '').replace(/</g,'&lt;');
+  const html = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'><head><meta charset='utf-8'></head>
+<body style="font-family:Calibri,sans-serif;font-size:12pt;line-height:1.9;"><pre style="white-space:pre-wrap;font-family:Calibri,sans-serif;">${content}</pre></body></html>`;
+  const blob = new Blob(['\ufeff' + html], { type: 'application/msword' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  const slug = (document.getElementById('charte-nom')?.value.trim().replace(/\s+/g,'-').toLowerCase() || 'etablissement');
+  a.download = 'charte-ia-' + slug + '.doc';
+  a.click();
+}
+
+function charteCopy(btn) {
+  charteUpdate();
+  const text = document.getElementById('charte-preview')?.textContent || '';
+  navigator.clipboard.writeText(text).then(() => {
+    if (btn) {
+      btn.textContent = '✓ Copié !';
+      setTimeout(() => { btn.textContent = '📋 Copier le texte'; }, 2000);
+    }
+  });
+}
+
+function charteReset() {
+  if (!confirm('Réinitialiser la charte ? Toutes les sélections seront effacées.')) return;
+  ['charte-nom','charte-commune','charte-directeur','charte-gouvernance'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
+  const dateEl = document.getElementById('charte-date'); if (dateEl) dateEl.value = '';
+  document.querySelectorAll('#charte-articles input[type="checkbox"]').forEach(c => c.checked = false);
+  document.querySelectorAll('#charte-articles .charte-custom-area textarea').forEach(t => t.value = '');
+  document.getElementById('charte-signataires-list').innerHTML = '';
+  charteSignataireCount = 0;
+  charteAddSignataire();
+  charteUpdate();
+}
+
 // ── INIT ──
 restoreReflections();
 updateProgress();
 updateScenario();
 rpRestore();
+charteInit();
 </script>
 </body>
 </html>
