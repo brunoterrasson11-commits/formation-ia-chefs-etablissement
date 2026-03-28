@@ -1030,7 +1030,13 @@
   }
 
   .welcome-module:hover {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.22);
+    cursor: pointer;
+  }
+
+  .welcome-module:hover .welcome-module-name {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .welcome-module-num {
@@ -1418,27 +1424,27 @@
           <h1 class="welcome-title">Stratégie & <em>Prospective</em> avec l'IA</h1>
           <p class="welcome-desc">Un parcours autonome pour les chefs d'établissement. Explorez les enjeux de l'intelligence artificielle, construisez des scénarios d'avenir et élaborez une stratégie adaptée à votre contexte.</p>
           <div class="welcome-modules">
-            <div class="welcome-module">
+            <div class="welcome-module" onclick="navigate('m1')" title="Aller au Module 01">
               <div class="welcome-module-num">01 —</div>
               <div class="welcome-module-name">Comprendre l'IA dans l'éducation</div>
             </div>
-            <div class="welcome-module">
+            <div class="welcome-module" onclick="navigate('m2')" title="Aller au Module 02">
               <div class="welcome-module-num">02 —</div>
               <div class="welcome-module-name">Prospective & Scénarios</div>
             </div>
-            <div class="welcome-module">
+            <div class="welcome-module" onclick="navigate('m3')" title="Aller au Module 03">
               <div class="welcome-module-num">03 —</div>
               <div class="welcome-module-name">Construire sa Stratégie IA</div>
             </div>
-            <div class="welcome-module">
+            <div class="welcome-module" onclick="navigate('m4')" title="Aller au Module 04">
               <div class="welcome-module-num">04 —</div>
               <div class="welcome-module-name">Gouvernance & Éthique</div>
             </div>
-            <div class="welcome-module">
+            <div class="welcome-module" onclick="navigate('m5')" title="Aller au Module 05">
               <div class="welcome-module-num">05 —</div>
               <div class="welcome-module-name">Plan d'Action</div>
             </div>
-            <div class="welcome-module">
+            <div class="welcome-module" onclick="navigate('synthese')" title="Aller au Tableau de Bord">
               <div class="welcome-module-num">⬡ —</div>
               <div class="welcome-module-name">Tableau de Bord Personnel</div>
             </div>
