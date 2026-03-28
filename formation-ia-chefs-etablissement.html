@@ -1838,6 +1838,127 @@ Posture : Aide à la décision, pas commentaire académique.</div>
           <button class="save-btn" onclick="markSaved(this)">↳ Enregistrer</button>
         </div>
 
+        <!-- ── SÉQUENCE 2 : ACTIVITÉ PRATIQUE ── -->
+        <div class="section-title">📊 Activité pratique — Prospective territoriale et démographique</div>
+
+        <div class="activity-intro">
+          <div class="obj-label">Objectif opérationnel</div>
+          Poser un cadre prospectif réaliste à partir de données générales. <strong>« La prospective ne sert pas à deviner l'avenir. Elle sert à éviter les mauvaises décisions quand il arrive. »</strong>
+          <br><br>
+          <em>Principes : on travaille avec peu de données, on accepte l'imprécision, on cherche des écarts — pas des certitudes.</em>
+        </div>
+
+        <p>Avant de lancer les prompts, identifiez :</p>
+        <ul style="margin: 0.5rem 0 1.5rem 1.5rem; font-size:14px; line-height:2;">
+          <li>Votre territoire (commune / bassin de recrutement)</li>
+          <li>Le niveau concerné (collège, lycée, filières spécifiques)</li>
+          <li>Une source de référence (INSEE, rectorat, réseau, diocèse)</li>
+        </ul>
+
+        <div class="prompt-section">
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 1 — Cadrage territorial</span>
+              <span class="prompt-block-tool">ChatGPT · Claude · Gemini</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-seq2-1">Tu es un expert en prospective territoriale appliquée à l'enseignement.
+
+Contexte :
+- Je suis chef d'établissement scolaire
+- Territoire concerné : [décrire brièvement le territoire : commune, bassin, caractéristiques]
+- Type d'établissement : [collège / lycée / filières spécifiques]
+
+Objectif : M'aider à poser un cadre prospectif réaliste à partir de données générales.
+
+Consignes précises :
+- Identifier les grandes tendances démographiques possibles sur ce territoire
+- Mentionner explicitement les limites et incertitudes
+- Ne pas inventer de chiffres précis si les données ne sont pas disponibles
+- Structurer la réponse en tendances clés (maximum 5)
+
+Posture attendue : Aide à la décision, prudente, non prédictive.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-seq2-1', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 2 — Génération des 3 scénarios d'effectifs</span>
+              <span class="prompt-block-tool">ChatGPT · Claude · Gemini</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-seq2-2">À partir du cadre territorial suivant :
+[Coller ici la réponse du Prompt 1]
+
+Construis trois scénarios prospectifs d'évolution des effectifs scolaires sur 3 à 5 ans :
+
+1) Scénario pessimiste
+2) Scénario tendanciel
+3) Scénario volontariste
+
+Pour chaque scénario, précise :
+- Les hypothèses principales
+- L'évolution probable des effectifs (hausse / stabilité / baisse)
+- L'impact sur :
+  • Le nombre de classes
+  • Les options ou filières
+  • Les ressources humaines
+
+Contraintes :
+- Pas de chiffres artificiellement précis
+- Raisonnement logique et explicite
+- Ton professionnel et sobre</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-seq2-2', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 3 — Comparaison stratégique des scénarios</span>
+              <span class="prompt-block-tool">ChatGPT · Claude · Gemini</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-seq2-3">Compare les trois scénarios prospectifs suivants :
+[Coller ici les 3 scénarios du Prompt 2]
+
+Objectif : Aider un chef d'établissement à anticiper les décisions stratégiques.
+
+Attendus :
+- Identifier les écarts majeurs entre les scénarios
+- Repérer les points de bascule critiques
+- Lister 2 décisions stratégiques possibles par scénario
+
+Consigne importante : Ne propose aucune décision unique comme "la bonne".</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-seq2-3', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt bonus — Exploitation de documents internes (NotebookLM)</span>
+              <span class="prompt-block-tool">NotebookLM</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-seq2-4">À partir des documents que je t'ai fournis :
+- Extrais les éléments utiles à une analyse prospective des effectifs
+- Mets-les en lien avec des scénarios possibles
+- Signale clairement ce qui relève du document et ce qui relève d'une projection
+
+Contrainte stricte : Aucune extrapolation non justifiée par les documents.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-seq2-4', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout success">
+          <div class="callout-title">Livrable attendu — Mini-matrice de scénarios prospectifs</div>
+          <p>Ce tableau n'est pas un exercice. C'est un outil de pilotage réutilisable dès demain. <strong>Une phrase par cellule, pas de copier-coller brut de l'IA, chaque ligne doit conduire à une décision possible.</strong></p>
+          <p style="margin-top:0.75rem; font-size:13px; opacity:0.85;">Rappels : l'IA raisonne, elle ne prévoit pas — l'imprécision est normale — ce qui compte, ce sont les <em>écarts entre scénarios</em>, pas leur exactitude.</p>
+        </div>
+
       </div>
       <div class="module-nav">
         <button class="btn btn-secondary" onclick="navigate('m1')">← Module 01</button>
