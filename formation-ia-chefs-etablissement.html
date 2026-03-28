@@ -2088,6 +2088,133 @@ Contrainte stricte : Aucune extrapolation non justifiée par les documents.</div
           <button class="save-btn" onclick="markSaved(this)">↳ Enregistrer</button>
         </div>
 
+        <!-- ── SÉQUENCE 3 : ACTIVITÉ PRATIQUE ── -->
+        <div class="section-title">💰 Activité pratique — Simulation budgétaire et arbitrage stratégique</div>
+
+        <div class="activity-intro">
+          <div class="obj-label">Objectif opérationnel</div>
+          Produire un simulateur de scénarios budgétaires et éclairer les choix d'arbitrage. <strong>« L'IA ne sert pas à faire la comptabilité. Elle sert à tester des décisions avant de les payer. »</strong>
+          <br><br>
+          <em>Principes : on ne cherche pas un budget exact — on cherche à comprendre les effets de levier — un bon simulateur est faux mais utile.</em>
+        </div>
+
+        <div class="card-grid" style="margin-bottom:1.5rem;">
+          <div class="card">
+            <div class="card-icon">📋</div>
+            <div class="card-title">Budget constaté</div>
+            <div class="card-text">Photographie du passé. Utile pour rendre des comptes. Inutile pour décider.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔮</div>
+            <div class="card-title">Budget simulé</div>
+            <div class="card-text">Projection basée sur des hypothèses. Véritable outil d'arbitrage stratégique.</div>
+          </div>
+        </div>
+
+        <p>Raisonnez en <strong>variables (curseurs)</strong> : effectifs · masse salariale · options / filières · investissements · charges fixes incompressibles.</p>
+
+        <div class="prompt-section">
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 1 — Modélisation budgétaire</span>
+              <span class="prompt-block-tool">Gemini · Claude</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-seq3-1">Tu es un expert en pilotage financier d'établissements scolaires.
+
+Contexte :
+Je suis chef d'établissement. Je ne cherche pas un budget comptable, mais un outil de simulation pour l'arbitrage stratégique.
+
+Consignes :
+- Propose une structure simple de budget avec :
+  • Recettes principales
+  • Charges fixes
+  • Charges variables
+  • Postes stratégiques pilotables
+- Identifier clairement les variables ajustables (curseurs)
+- Limiter le modèle à l'essentiel (maximum 15 lignes)
+
+Format attendu : Tableau structuré, lisible, orienté décision.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-seq3-1', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 2 — Identification des curseurs stratégiques</span>
+              <span class="prompt-block-tool">Gemini · Claude</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-seq3-2">À partir de ce modèle budgétaire :
+[Coller ici la structure du tableau du Prompt 1]
+
+Identifie :
+- Les postes réellement pilotables par un chef d'établissement
+- Ceux qui sont peu ou pas compressibles
+- Les variables à fort effet de levier
+
+Classe-les par impact stratégique : fort / moyen / faible.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-seq3-2', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 3 — Simulation d'hypothèses budgétaires</span>
+              <span class="prompt-block-tool">Gemini · Claude</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-seq3-3">À partir du modèle budgétaire suivant :
+[Coller ici le tableau]
+
+Simule les effets des hypothèses suivantes :
+- Hypothèse 1 : [ex : +20 élèves]
+- Hypothèse 2 : [ex : ouverture d'une option]
+
+Pour chaque hypothèse :
+- Décrire l'impact global sur l'équilibre budgétaire
+- Identifier les tensions créées
+- Préciser les arbitrages nécessaires
+
+Contraintes :
+- Ne produis pas de chiffres artificiellement précis
+- Raisonne en ordres de grandeur</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-seq3-3', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 4 — Arbitrage stratégique comparé</span>
+              <span class="prompt-block-tool">Gemini · Claude</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-seq3-4">Compare les scénarios budgétaires suivants :
+- Scénario A : maintien de la situation actuelle
+- Scénario B : [hypothèse 1 — ex : +20 élèves]
+- Scénario C : [hypothèse 2 — ex : ouverture d'une option]
+
+Objectif : Aider un chef d'établissement à arbitrer.
+
+Attendus :
+- Avantages et risques de chaque scénario
+- Décisions difficiles à anticiper
+- Scénario le plus robuste face à l'incertitude
+
+Important : Aucune recommandation unique comme "la bonne décision".</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-seq3-4', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout success">
+          <div class="callout-title">Livrable attendu — Simulateur budgétaire interactif</div>
+          <p>1 simulateur budgétaire fonctionnel (même simple) · au moins 3 curseurs stratégiques identifiés · 2 scénarios testés et commentés.</p>
+          <p style="margin-top:0.75rem; font-size:13px; opacity:0.85;"><strong>Avec Gemini Canvas :</strong> importez votre tableau Excel, transformez les variables clés en curseurs, visualisez l'impact sur l'équilibre global et les postes sensibles.</p>
+        </div>
+
       </div>
       <div class="module-nav">
         <button class="btn btn-secondary" onclick="navigate('m2')">← Module 02</button>
