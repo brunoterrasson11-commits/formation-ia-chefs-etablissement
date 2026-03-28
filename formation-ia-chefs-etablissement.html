@@ -2469,6 +2469,136 @@ Contrainte : Ne propose pas un scénario idéal unique.</div>
           <p style="margin-top:0.75rem; font-size:13px; opacity:0.85;">Alimente l'<strong>axe n°4 – RH & organisation</strong> de votre tableau de bord : scénarios testés · choix retenu · points de vigilance.</p>
         </div>
 
+        <!-- ── RECRUTEMENT & ATTRACTIVITÉ : ACTIVITÉ PRATIQUE ── -->
+        <div class="section-title">🧑‍🏫 Activité pratique — Recrutement et attractivité des enseignants</div>
+
+        <div class="activity-intro">
+          <div class="obj-label">Objectif stratégique</div>
+          Utiliser l'IA pour élargir le vivier, mieux cibler et mieux choisir, <strong>sans déshumaniser le recrutement</strong>. Arrêter de recruter à l'aveugle et dans l'urgence.
+          <br><br>
+          <em>L'IA peut chercher, comparer, structurer. Elle ne juge pas des personnes. Elle éclaire un choix.</em>
+        </div>
+
+        <div class="callout" style="margin-bottom:1.5rem;">
+          <div class="callout-title">Rappels non négociables</div>
+          <p>Pas de scoring automatique des individus · Pas de critères discriminants · Pas de décision sans entretien humain.</p>
+        </div>
+
+        <div class="card-grid" style="margin-bottom:1.5rem;">
+          <div class="card">
+            <div class="card-icon">🔍</div>
+            <div class="card-title">Comet</div>
+            <div class="card-text">Meilleur pour la prospection active : LinkedIn, sites, réseaux, viviers invisibles.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🧠</div>
+            <div class="card-title">ChatGPT · Claude</div>
+            <div class="card-text">Meilleurs pour structurer l'analyse : CV, profils, adéquation poste.</div>
+          </div>
+        </div>
+
+        <p style="margin-bottom:1.5rem;"><strong>Modalité :</strong> Travail en binômes. Chaque groupe choisit un poste réel à pourvoir (ou plausible) dans une discipline sous tension.</p>
+
+        <div class="prompt-section">
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 1 — Recherche de profils enseignants</span>
+              <span class="prompt-block-tool">Comet</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-recr-1">Recherche sur LinkedIn et le web des profils correspondant au poste suivant :
+
+Poste à pourvoir :
+- Discipline : [ex : mathématiques, lettres, SVT…]
+- Type d'établissement : scolaire
+- Niveau : [collège / lycée / filières spécifiques]
+- Contraintes éventuelles : [temps partiel, zone géographique, etc.]
+
+Objectif : Identifier des profils potentiellement intéressants, même s'ils ne recherchent pas activement un poste.
+
+Consignes :
+- Explorer LinkedIn et le web ouvert
+- Identifier les types de profils récurrents
+- Repérer les parcours atypiques mais intéressants
+- Ne pas produire de données personnelles sensibles
+
+Restitution attendue : Typologies de profils + exemples de parcours.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-recr-1', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 2 — Analyse de l'attractivité du poste</span>
+              <span class="prompt-block-tool">ChatGPT · Claude</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-recr-2">À partir de la description du poste suivant :
+[Coller ici la fiche de poste ou description rapide]
+
+Analyse :
+- Les éléments attractifs réels du poste
+- Les freins potentiels au recrutement
+- Les ajustements possibles pour élargir le vivier
+
+Objectif : Améliorer l'attractivité sans dégrader les exigences.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-recr-2', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 3 — Lecture structurée d'un CV</span>
+              <span class="prompt-block-tool">Claude</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-recr-3">Tu es un expert en recrutement dans l'enseignement.
+
+Contexte : Je souhaite analyser un CV pour un poste d'enseignant.
+
+[Coller ici le CV anonymisé]
+
+Consignes :
+- Identifier les compétences clés pertinentes pour le poste
+- Repérer les expériences transférables
+- Mettre en évidence les zones d'incertitude à creuser en entretien
+- Ne jamais porter de jugement de valeur sur la personne
+
+Format : Analyse structurée et factuelle.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-recr-3', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 4 — Comparaison de plusieurs profils</span>
+              <span class="prompt-block-tool">Claude · ChatGPT</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-recr-4">Compare les profils suivants pour un même poste d'enseignant :
+[Coller ici les CV anonymisés ou descriptions des profils]
+
+Objectif : Aider à préparer une décision de recrutement.
+
+Attendus :
+- Forces spécifiques de chaque profil
+- Risques ou points à approfondir
+- Questions à poser en entretien pour chaque candidat
+
+Ne propose pas de classement automatique.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-recr-4', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout success">
+          <div class="callout-title">Livrables attendus — Stratégie de recrutement</div>
+          <p>1 stratégie de recherche de candidats (où, comment, pourquoi) · 1 typologie de profils enseignants pertinents · 1 grille de lecture de CV utilisable en entretien.</p>
+          <p style="margin-top:0.75rem; font-size:13px; opacity:0.85;">Alimente l'<strong>axe n°4 – RH & organisation</strong> : viviers identifiés · leviers d'attractivité · critères de choix assumés.</p>
+        </div>
+
       </div>
       <div class="module-nav">
         <button class="btn btn-secondary" onclick="navigate('m3')">← Module 03</button>
