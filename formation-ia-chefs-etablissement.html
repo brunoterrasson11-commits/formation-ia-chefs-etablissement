@@ -2898,6 +2898,149 @@ Ne produis aucune recommandation générique.</div>
         <button class="btn btn-primary" onclick="exportNotes()" style="margin-top:0.5rem">↳ Télécharger mes notes (.txt)</button>
         <button class="btn btn-secondary" onclick="clearAll()" style="margin-left:1rem; margin-top:0.5rem">Réinitialiser la formation</button>
 
+        <!-- ── CONSTRUCTION DU TABLEAU DE BORD ── -->
+        <div class="section-title" style="margin-top:2.5rem;">🧭 Construire mon tableau de bord stratégique IA</div>
+
+        <div class="activity-intro">
+          <div class="obj-label">Objectif final</div>
+          Produire un tableau de bord <strong>unique, personnalisé et réutilisable</strong> — outil de pilotage au quotidien, évolutif selon le contexte. Ce n'est pas un rapport. C'est votre instrument de décision.
+          <br><br>
+          <em>Les 5 séquences précédentes ont alimenté les 5 axes. Il s'agit maintenant de les assembler.</em>
+        </div>
+
+        <div class="card-grid" style="margin-bottom:1.5rem;">
+          <div class="card"><div class="card-icon">🏫</div><div class="card-title">Axe 1</div><div class="card-text">Positionnement & territoire</div></div>
+          <div class="card"><div class="card-icon">📊</div><div class="card-title">Axe 2</div><div class="card-text">Prospective & effectifs</div></div>
+          <div class="card"><div class="card-icon">💰</div><div class="card-title">Axe 3</div><div class="card-text">Finances & arbitrages</div></div>
+          <div class="card"><div class="card-icon">🧑‍🏫</div><div class="card-title">Axe 4</div><div class="card-text">RH & organisation</div></div>
+          <div class="card"><div class="card-icon">🔍</div><div class="card-title">Axe 5</div><div class="card-text">Veille & opportunités</div></div>
+        </div>
+
+        <div class="prompt-section">
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 1 — Définir les axes et leur finalité décisionnelle</span>
+              <span class="prompt-block-tool">ChatGPT · Claude · Gemini</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-tdb-1">Tu es un expert en pilotage stratégique d'établissement scolaire.
+
+Objectif : Aider à structurer un tableau de bord stratégique intégrant l'usage de l'IA.
+
+Contexte :
+- Statut : Chef d'établissement
+- Besoin : Tableau de bord orienté décision, non reporting
+
+Pour chacun des cinq axes stratégiques suivants :
+1. Positionnement & territoire
+2. Prospective & effectifs
+3. Finances & arbitrages
+4. RH & organisation
+5. Veille & opportunités
+
+Indique pour chaque axe :
+- L'objectif stratégique de l'axe
+- Le type de décisions que cet axe doit éclairer
+
+Format attendu : Réponse structurée, claire, sans jargon académique.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-tdb-1', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 2 — Sélectionner les indicateurs utiles</span>
+              <span class="prompt-block-tool">ChatGPT · Claude · Gemini</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-tdb-2">À partir des axes et objectifs suivants :
+[Coller ici la réponse du Prompt 1]
+
+Pour chaque axe stratégique, propose :
+- 3 à 5 indicateurs maximum (pas plus)
+- Pour chacun, précise :
+  • Ce qu'il mesure concrètement
+  • Pourquoi il est utile pour un chef d'établissement
+  • Sa limite éventuelle ou son angle mort
+
+Interdictions :
+- Aucun indicateur redondant
+- Aucun indicateur sans lien direct avec une décision possible
+- Éviter la surcharge informationnelle
+
+Principe : "Si on veut tout surveiller, on ne surveillera rien."</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-tdb-2', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 3 — Articuler indicateurs, IA et décisions</span>
+              <span class="prompt-block-tool">ChatGPT · Claude · Gemini</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-tdb-3">À partir des axes et indicateurs suivants :
+[Coller ici les axes + indicateurs du Prompt 2]
+
+Pour chaque axe, précise :
+- Quelles IA peuvent être mobilisées (veille, simulation, analyse)
+- À quelles décisions concrètes cela peut conduire
+- Quels sont les points de vigilance dans l'usage de l'IA
+
+Objectif : Rendre explicite et transparent le lien entre données brutes, traitement par l'IA, et décision humaine assumée.
+
+Ton attendu : Lucide, responsable, orienté décision.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-tdb-3', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt final — Feuille de route IA priorisée</span>
+              <span class="prompt-block-tool">Canva · Gemini Canvas</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-tdb-4">Tu es un conseiller stratégique pour chef d'établissement.
+
+Contexte : Voici mon tableau de bord stratégique IA
+[Coller ici les axes + indicateurs + décisions possibles]
+
+Objectif : M'aider à formaliser une feuille de route IA réaliste et priorisée.
+
+Consignes :
+1. Identifier :
+   - 3 usages IA prioritaires à déployer à court terme
+   - 3 usages secondaires à moyen terme
+   - 1 usage à ne pas faire (risque, non pertinent, non mûr)
+
+2. Pour chaque usage prioritaire, préciser :
+   - L'objectif recherché
+   - L'impact attendu
+   - Les conditions de réussite
+   - Les points de vigilance
+
+Contraintes :
+- Aucun usage gadget
+- Aucun usage hors gouvernance
+- Ton lucide, responsable, orienté décision</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-tdb-4', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout info">
+          <div class="callout-title">Structuration visuelle — Napkin</div>
+          <p>Schématisez votre tableau de bord dans Napkin : axes stratégiques · flux d'information entre axes · points de décision critiques. L'objectif est de rendre visible la logique de pilotage, pas les chiffres bruts.</p>
+        </div>
+
+        <div class="callout success">
+          <div class="callout-title">Livrable final — Feuille de route IA & Tableau de bord</div>
+          <p>Un document personnalisé, réutilisable et évolutif comprenant : les 5 axes · les indicateurs clés · l'IA associée à chaque axe · les décisions stratégiques possibles.</p>
+          <p style="margin-top:0.75rem; font-size:13px; opacity:0.85;"><strong>Format de restitution :</strong> Canva ou Gemini Canvas — Support : Établissement · Année N/N+2 · Chef d'établissement · Date.</p>
+        </div>
+
       </div>
     </div>
 
