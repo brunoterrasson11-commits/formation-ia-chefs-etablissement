@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/formation-ia-chefs-etablissement.html" }
+  ]
+}
