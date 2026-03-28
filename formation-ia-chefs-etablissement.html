@@ -367,6 +367,102 @@
     font-weight: 300;
   }
 
+  /* ── PROMPT BLOCKS ── */
+  .prompt-section {
+    margin: 2rem 0;
+  }
+
+  .prompt-block {
+    background: #F8F4FF;
+    border: 1px solid rgba(146,48,187,0.2);
+    border-radius: var(--radius);
+    margin: 1.25rem 0;
+    overflow: hidden;
+  }
+
+  .prompt-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%);
+    color: #fff;
+  }
+
+  .prompt-block-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .prompt-block-tool {
+    font-size: 10px;
+    background: rgba(255,255,255,0.2);
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  .prompt-block-body {
+    padding: 1.1rem 1.25rem;
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: #2E2E2E;
+    white-space: pre-wrap;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+  }
+
+  .prompt-block-body strong {
+    font-weight: 600;
+    color: var(--purple-dark);
+  }
+
+  .prompt-block-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 1rem 0.75rem;
+    border-top: 1px solid rgba(146,48,187,0.1);
+  }
+
+  .copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--purple);
+    color: #fff;
+    border: none;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+  }
+
+  .copy-btn:hover { background: var(--purple-dark); }
+  .copy-btn.copied { background: var(--sage); }
+
+  .activity-intro {
+    background: rgba(146,48,187,0.05);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+    border-left: 3px solid var(--purple);
+  }
+
+  .activity-intro .obj-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--purple);
+    margin-bottom: 0.4rem;
+  }
+
   /* ── CALLOUT ── */
   .callout {
     border-left: 3px solid var(--gold);
@@ -1507,6 +1603,101 @@
           <p>L'IA n'est pas une technologie parmi d'autres. Elle transforme en profondeur les métiers, les apprentissages et les organisations. Votre rôle de chef d'établissement est de <strong>piloter cette transition</strong>, non de la subir.</p>
         </div>
 
+        <!-- ── SÉQUENCE 1 : ACTIVITÉ PRATIQUE ── -->
+        <div class="section-title">🧠 Activité pratique — Lire son établissement comme un système stratégique</div>
+
+        <div class="activity-intro">
+          <div class="obj-label">Objectif opérationnel</div>
+          Produire une lecture stratégique objectivée de votre établissement à partir de sources ouvertes, et identifier <strong>3 leviers de décision prioritaires</strong>.
+        </div>
+
+        <p>Utilisez <strong>Perplexity</strong> ou <strong>Comet</strong> pour analyser votre propre établissement puis un établissement concurrent. Copiez-collez les prompts ci-dessous directement dans l'outil de votre choix.</p>
+
+        <div class="prompt-section">
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 1 — Analyse de mon établissement</span>
+              <span class="prompt-block-tool">Perplexity · Comet</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-seq1-1">Analyse le site internet de l'établissement suivant :
+[URL du site de votre établissement]
+
+Objectif : Fournir une analyse stratégique synthétique, destinée à un chef d'établissement.
+
+Consignes précises :
+- Identifier clairement :
+  • Le positionnement de l'établissement
+  • Les filières mises en avant
+  • Les messages stratégiques implicites ou explicites
+  • Les éléments différenciants visibles
+  • Les angles morts ou absences notables
+- Appuyer l'analyse uniquement sur les éléments observables sur le site
+- Structurer la réponse en rubriques claires
+- Conclure par 3 opportunités stratégiques potentielles
+
+Style attendu : Professionnel, synthétique, orienté décision.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-seq1-1', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 2 — Analyse d'un établissement concurrent</span>
+              <span class="prompt-block-tool">Perplexity · Comet</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-seq1-2">Analyse le site internet de l'établissement suivant, considéré comme un concurrent potentiel :
+[URL de l'établissement concurrent]
+
+Objectif : Comparer son positionnement stratégique avec celui de mon établissement.
+
+Consignes :
+- Identifier :
+  • Ses points forts visibles
+  • Sa stratégie de communication
+  • Les publics ciblés
+  • Les choix de différenciation
+- Comparer implicitement avec un établissement scolaire standard du même territoire
+- Conclure par :
+  • 2 avantages concurrentiels
+  • 2 vulnérabilités potentielles
+
+Restriction : Ne faire aucune hypothèse non vérifiable.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-seq1-2', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 3 — Synthèse stratégique comparative</span>
+              <span class="prompt-block-tool">ChatGPT · Claude · Gemini</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-seq1-3">À partir des analyses suivantes :
+1) [Coller ici l'analyse de mon établissement]
+2) [Coller ici l'analyse de l'établissement concurrent]
+
+Réaliser une synthèse stratégique comparative destinée à un chef d'établissement.
+
+Attendus :
+- Tableau Forces / Faiblesses / Opportunités / Menaces (SWOT simplifié)
+- Mise en évidence de 3 leviers stratégiques réalistes à court ou moyen terme
+- Aucun discours généraliste
+
+Posture : Aide à la décision, pas commentaire académique.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-seq1-3', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout success">
+          <div class="callout-title">Livrable attendu</div>
+          <p>Un dossier de diagnostic stratégique externe synthétisant les trois analyses. <em>« L'IA ne vous dit pas quoi faire. Elle vous empêche surtout de décider à l'aveugle. »</em></p>
+        </div>
+
       </div>
       <div class="module-nav">
         <button class="btn btn-secondary" onclick="navigate('welcome')">← Accueil</button>
@@ -2193,6 +2384,20 @@ function restoreReflections() {
   Object.entries(state.reflections).forEach(([id, val]) => {
     const el = document.getElementById(id);
     if (el) el.value = val;
+  });
+}
+
+// ── COPY PROMPT ──
+function copyPrompt(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent.trim()).then(() => {
+    btn.textContent = '✓ Copié !';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '⎘ Copier le prompt';
+      btn.classList.remove('copied');
+    }, 2000);
   });
 }
 
