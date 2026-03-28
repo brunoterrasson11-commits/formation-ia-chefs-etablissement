@@ -1,0 +1,2349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stratégie & Prospective avec l'IA — Formation Chefs d'Établissement</title>
+<style>
+  :root {
+    /* ── Charte Sophiae ── */
+    --purple:        #9230BB;
+    --purple-light:  #B455D9;
+    --purple-xlight: #F4E8FB;
+    --purple-dark:   #6B1A98;
+    --gray:          #777777;
+    --gray-dark:     #3D3D3D;
+    --gray-light:    #F2F2F2;
+    --gray-mid:      #DEDEDE;
+    --white:         #FFFFFF;
+    --text:          #2E2E2E;
+    --green:         #1A9E6F;
+    --red:           #C0392B;
+
+    /* ── Aliases ── */
+    --ink:       #2E2E2E;
+    --paper:     #FFFFFF;
+    --gold:      #9230BB;
+    --gold-light:#B455D9;
+    --indigo:    #6B1A98;
+    --indigo-mid:#9230BB;
+    --sage:      #1A9E6F;
+    --rust:      #C0392B;
+    --cream:     #F4E8FB;
+    --muted:     #777777;
+    --border:    #DEDEDE;
+    --radius:    4px;
+    --shadow:    0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #FAFAFA;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--purple-dark);
+    color: var(--paper);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 30px rgba(0,0,0,0.3);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 64px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--purple-dark);
+    flex-shrink: 0;
+    border-radius: 4px;
+  }
+
+  .logo-text {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+
+  .logo-sub {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .header-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+  }
+
+  .progress-bar-mini {
+    width: 120px;
+    height: 3px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-mini-fill {
+    height: 100%;
+    background: var(--gold);
+    transition: width 0.5s ease;
+    border-radius: 2px;
+  }
+
+  /* ── LAYOUT ── */
+  .app-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 64px);
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    background: #FAFAFA;
+    border-right: 1px solid var(--border);
+    padding: 2rem 0;
+    position: sticky;
+    top: 64px;
+    height: calc(100vh - 64px);
+    overflow-y: auto;
+  }
+
+  .sidebar-section {
+    padding: 0 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .sidebar-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    padding-left: 0.5rem;
+    border-left: 2px solid var(--gold);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 2px;
+    position: relative;
+  }
+
+  .nav-item:hover { background: rgba(146,48,187,0.08); }
+
+  .nav-item.active {
+    background: var(--indigo);
+    color: var(--paper);
+  }
+
+  .nav-item.active .nav-number { color: rgba(255,255,255,0.7); }
+  .nav-item.active .nav-label { color: var(--paper); }
+
+  .nav-item.done .nav-check {
+    width: 16px;
+    height: 16px;
+    background: var(--sage);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .nav-item.done .nav-check::after {
+    content: '✓';
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+  }
+
+  .nav-number {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    min-width: 20px;
+    font-weight: 500;
+  }
+
+  .nav-label {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .nav-item.active .nav-dot { background: var(--gold); }
+  .nav-item.done .nav-dot { background: var(--sage); }
+
+  /* ── MAIN CONTENT ── */
+  .main-content {
+    padding: 0;
+    overflow-y: auto;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; animation: fadeIn 0.4s ease; }
+  .screen.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── MODULE HEADER ── */
+  .module-header {
+    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%);
+    color: #FFFFFF;
+    padding: 3rem 4rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .module-header::before {
+    content: attr(data-number);
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .module-tag {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 3px 10px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .module-title {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+    max-width: 600px;
+  }
+
+  .module-desc {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    opacity: 0.75;
+    max-width: 560px;
+  }
+
+  /* ── MODULE BODY ── */
+  .module-body {
+    padding: 3rem 4rem;
+    max-width: 880px;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .section-title {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--indigo);
+    margin-bottom: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-title:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+
+  p {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: #2E2E2E;
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+
+  /* ── CARDS ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    transition: all 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 4px 20px rgba(146,48,187,0.12);
+  }
+
+  .card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-title {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--indigo);
+    margin-bottom: 0.4rem;
+  }
+
+  .card-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border-left: 3px solid var(--gold);
+    background: rgba(146,48,187,0.06);
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  .callout-title {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .callout p {
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+
+  .callout.info { border-color: var(--indigo-mid); background: rgba(107,26,152,0.05); }
+  .callout.info .callout-title { color: var(--indigo-mid); }
+
+  .callout.success { border-color: var(--sage); background: rgba(26,158,111,0.06); }
+  .callout.success .callout-title { color: var(--sage); }
+
+  .callout.warning { border-color: var(--rust); background: rgba(192,57,43,0.06); }
+  .callout.warning .callout-title { color: var(--rust); }
+
+  /* ── INTERACTIVE: REFLECTION ── */
+  .reflection-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .reflection-prompt {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--indigo);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .reflection-hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    font-weight: 300;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 100px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.875rem 1rem;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--ink);
+    background: white;
+    resize: vertical;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  textarea:focus { border-color: var(--indigo); }
+  textarea::placeholder { color: #bbb; font-style: italic; }
+
+  .save-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0.75rem;
+    padding: 8px 16px;
+    background: var(--indigo);
+    color: var(--paper);
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .save-btn:hover { background: var(--indigo-mid); }
+  .save-btn.saved { background: var(--sage); }
+
+  /* ── INTERACTIVE: QUIZ ── */
+  .quiz-container {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+
+  .quiz-question {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1rem;
+    color: var(--indigo);
+    line-height: 1.5;
+  }
+
+  .quiz-options {
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .quiz-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  .quiz-option:hover { border-color: var(--gold); background: rgba(146,48,187,0.04); }
+  .quiz-option.correct { border-color: var(--sage); background: rgba(26,158,111,0.08); color: var(--sage); }
+  .quiz-option.wrong { border-color: var(--rust); background: rgba(192,57,43,0.06); color: var(--rust); }
+  .quiz-option.selected { border-color: var(--indigo); background: rgba(107,26,152,0.05); }
+
+  .quiz-letter {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    min-width: 16px;
+    padding-top: 1px;
+    font-weight: 500;
+  }
+
+  .quiz-feedback {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 300;
+    display: none;
+    line-height: 1.6;
+  }
+
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct-fb { color: var(--sage); }
+  .quiz-feedback.wrong-fb { color: var(--rust); }
+
+  /* ── INTERACTIVE: SCENARIO ── */
+  .scenario-builder {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .scenario-title {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--indigo);
+    margin-bottom: 0.5rem;
+  }
+
+  .scenario-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+
+  .scenario-axes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .axis-group label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .axis-slider {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    outline: none;
+    margin-bottom: 0.25rem;
+  }
+
+  .axis-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--gold);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+  }
+
+  .axis-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .scenario-result {
+    background: var(--indigo);
+    color: var(--paper);
+    padding: 1.25rem;
+    border-radius: var(--radius);
+    min-height: 80px;
+  }
+
+  .scenario-result-title {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+
+  .scenario-result-text {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  /* ── ACTION PLAN ── */
+  .action-plan {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+
+  .action-plan-header {
+    background: var(--indigo);
+    color: var(--paper);
+    padding: 1rem 1.5rem;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .action-items { padding: 1rem 1.5rem; }
+
+  .action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .action-item:last-child { border-bottom: none; }
+
+  .action-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 2px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-top: 1px;
+  }
+
+  .action-checkbox.checked { background: var(--sage); border-color: var(--sage); }
+  .action-checkbox.checked::after { content: '✓'; color: white; font-size: 11px; font-weight: 700; }
+
+  .action-text { font-size: 13.5px; font-weight: 300; line-height: 1.5; }
+  .action-text .action-horizon {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-right: 6px;
+    font-weight: 500;
+  }
+
+  .h-court { background: rgba(146,48,187,0.15); color: var(--gold); }
+  .h-moyen { background: rgba(107,26,152,0.1); color: var(--indigo-mid); }
+  .h-long { background: rgba(26,158,111,0.12); color: var(--sage); }
+
+  /* ── SWOT ── */
+  .swot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+
+  .swot-cell {
+    background: white;
+    padding: 1.25rem;
+  }
+
+  .swot-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid;
+  }
+
+  .swot-S .swot-label { color: var(--sage); border-color: var(--sage); }
+  .swot-W .swot-label { color: var(--rust); border-color: var(--rust); }
+  .swot-O .swot-label { color: var(--indigo-mid); border-color: var(--indigo-mid); }
+  .swot-T .swot-label { color: var(--gold); border-color: var(--gold); }
+
+  .swot-cell textarea {
+    border: none;
+    background: transparent;
+    padding: 0;
+    font-size: 12.5px;
+    min-height: 80px;
+    resize: none;
+    outline: none;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    margin: 1.5rem 0;
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), var(--indigo));
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 1.5rem 1.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+
+  .timeline-date {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+  }
+
+  .timeline-title {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--indigo);
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-text {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── NAV BUTTONS ── */
+  .module-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem 3rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary {
+    background: var(--purple);
+    color: #FFFFFF;
+  }
+
+  .btn-primary:hover { background: var(--purple-light); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--indigo);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover { border-color: var(--indigo); background: rgba(107,26,152,0.04); }
+
+  /* ── WELCOME SCREEN ── */
+  .welcome-screen {
+    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 55%, var(--purple-light) 100%);
+    min-height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .welcome-bg {
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .welcome-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .welcome-content {
+    position: relative;
+    max-width: 640px;
+  }
+
+  .welcome-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(146,48,187,0.4);
+    padding: 5px 14px;
+    margin-bottom: 2rem;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+
+  .welcome-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.85);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .welcome-title {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--paper);
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+  }
+
+  .welcome-title em {
+    font-style: italic;
+    color: #E8BAFF;
+  }
+
+  .welcome-desc {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .welcome-modules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.1);
+    margin-bottom: 2.5rem;
+    text-align: left;
+  }
+
+  .welcome-module {
+    background: rgba(255,255,255,0.03);
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .welcome-module-num {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 0.4rem;
+  }
+
+  .welcome-module-name {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+  }
+
+  .start-btn {
+    background: #FFFFFF;
+    color: var(--purple-dark);
+    border: none;
+    padding: 14px 36px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.3s;
+    letter-spacing: 0.02em;
+  }
+
+  .start-btn:hover {
+    background: var(--purple-xlight);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(146,48,187,0.3);
+  }
+
+  /* ── COMPLETION ── */
+  .completion-screen {
+    background: var(--indigo);
+    min-height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem;
+  }
+
+  .completion-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 2rem;
+  }
+
+  /* ── TAGS / CHIPS ── */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 1rem 0; }
+
+  .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+  }
+
+  .tag-gold { background: rgba(146,48,187,0.12); color: var(--gold); border: 1px solid rgba(146,48,187,0.25); }
+  .tag-ink { background: rgba(46,46,46,0.08); color: var(--ink); border: 1px solid rgba(46,46,46,0.15); }
+  .tag-sage { background: rgba(26,158,111,0.12); color: var(--sage); border: 1px solid rgba(26,158,111,0.25); }
+
+  /* ── MATRIX ── */
+  .matrix-container {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .matrix-title {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--indigo);
+    margin-bottom: 0.4rem;
+  }
+
+  .matrix-desc { font-size: 12.5px; color: var(--muted); margin-bottom: 1.25rem; font-weight: 300; }
+
+  .matrix-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    height: 280px;
+    position: relative;
+  }
+
+  .matrix-cell {
+    background: white;
+    padding: 0.875rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .matrix-cell-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+
+  .matrix-cell textarea {
+    border: none;
+    background: transparent;
+    padding: 0;
+    font-size: 12px;
+    flex: 1;
+    resize: none;
+    min-height: auto;
+  }
+
+  /* ── ACCORDION ── */
+  .accordion { margin: 1.5rem 0; }
+
+  .accordion-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+  }
+
+  .accordion-header {
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    background: var(--cream);
+    transition: background 0.2s;
+    user-select: none;
+  }
+
+  .accordion-header:hover { background: rgba(146,48,187,0.06); }
+
+  .accordion-header-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--indigo);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .accordion-icon {
+    font-size: 18px;
+    color: var(--gold);
+  }
+
+  .accordion-arrow {
+    color: var(--muted);
+    transition: transform 0.3s;
+    font-size: 12px;
+  }
+
+  .accordion-item.open .accordion-arrow { transform: rotate(180deg); }
+
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    background: white;
+  }
+
+  .accordion-item.open .accordion-body { max-height: 600px; }
+
+  .accordion-content {
+    padding: 1.25rem;
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #2E2E2E;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── PROGRESS RING ── */
+  .progress-ring-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .progress-ring svg { transform: rotate(-90deg); }
+
+  .progress-ring-text {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--indigo);
+    margin-bottom: 0.2rem;
+  }
+
+  .progress-ring-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* ── QUOTE ── */
+  .pull-quote {
+    margin: 2rem 0;
+    padding: 1.5rem 2rem;
+    position: relative;
+  }
+
+  .pull-quote::before {
+    content: '\201C';
+    position: absolute;
+    top: -0.25rem;
+    left: 0.5rem;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 6rem;
+    color: var(--gold);
+    opacity: 0.2;
+    line-height: 1;
+  }
+
+  .pull-quote-text {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--indigo);
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+
+  .pull-quote-author {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    font-weight: 400;
+  }
+
+  /* ── PILL TABS ── */
+  .tab-row {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tab-pill {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid var(--border);
+    background: white;
+    color: var(--muted);
+  }
+
+  .tab-pill:hover { border-color: var(--gold); color: var(--gold); }
+  .tab-pill.active { background: var(--indigo); color: var(--paper); border-color: var(--indigo); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .app-layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .module-header { padding: 2rem; }
+    .module-body { padding: 2rem; }
+    .module-nav { padding: 1.5rem 2rem 2.5rem; }
+    .welcome-title { font-size: 2rem; }
+    .welcome-modules { grid-template-columns: 1fr; }
+    .scenario-axes { grid-template-columns: 1fr; }
+    .swot-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark">IA</div>
+      <div>
+        <div class="logo-text">Stratégie & Prospective</div>
+        <div class="logo-sub">Formation Chefs d'Établissement</div>
+      </div>
+    </div>
+    <div class="header-progress">
+      <span id="progress-label">0 / 5 modules</span>
+      <div class="progress-bar-mini">
+        <div class="progress-bar-mini-fill" id="global-progress" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- APP LAYOUT -->
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigation</div>
+      <div class="nav-item active" data-screen="welcome" onclick="navigate('welcome')">
+        <span class="nav-number">00</span>
+        <span class="nav-label">Accueil & Présentation</span>
+        <span class="nav-dot"></span>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Modules</div>
+      <div class="nav-item" data-screen="m1" onclick="navigate('m1')">
+        <span class="nav-number">01</span>
+        <span class="nav-label">Comprendre l'IA dans l'éducation</span>
+        <span class="nav-dot"></span>
+      </div>
+      <div class="nav-item" data-screen="m2" onclick="navigate('m2')">
+        <span class="nav-number">02</span>
+        <span class="nav-label">Prospective & Scénarios</span>
+        <span class="nav-dot"></span>
+      </div>
+      <div class="nav-item" data-screen="m3" onclick="navigate('m3')">
+        <span class="nav-number">03</span>
+        <span class="nav-label">Construire sa Stratégie IA</span>
+        <span class="nav-dot"></span>
+      </div>
+      <div class="nav-item" data-screen="m4" onclick="navigate('m4')">
+        <span class="nav-number">04</span>
+        <span class="nav-label">Gouvernance & Éthique</span>
+        <span class="nav-dot"></span>
+      </div>
+      <div class="nav-item" data-screen="m5" onclick="navigate('m5')">
+        <span class="nav-number">05</span>
+        <span class="nav-label">Plan d'Action & Mise en Œuvre</span>
+        <span class="nav-dot"></span>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Synthèse</div>
+      <div class="nav-item" data-screen="synthese" onclick="navigate('synthese')">
+        <span class="nav-number">⬡</span>
+        <span class="nav-label">Mon Tableau de Bord</span>
+        <span class="nav-dot"></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- ══ WELCOME ══ -->
+    <div id="screen-welcome" class="screen active">
+      <div class="welcome-screen">
+        <div class="welcome-bg"></div>
+        <div class="welcome-grid"></div>
+        <div class="welcome-content">
+          <div class="welcome-badge">Formation interactive — 2024–2025</div>
+          <h1 class="welcome-title">Stratégie & <em>Prospective</em> avec l'IA</h1>
+          <p class="welcome-desc">Un parcours autonome pour les chefs d'établissement. Explorez les enjeux de l'intelligence artificielle, construisez des scénarios d'avenir et élaborez une stratégie adaptée à votre contexte.</p>
+          <div class="welcome-modules">
+            <div class="welcome-module">
+              <div class="welcome-module-num">01 —</div>
+              <div class="welcome-module-name">Comprendre l'IA dans l'éducation</div>
+            </div>
+            <div class="welcome-module">
+              <div class="welcome-module-num">02 —</div>
+              <div class="welcome-module-name">Prospective & Scénarios</div>
+            </div>
+            <div class="welcome-module">
+              <div class="welcome-module-num">03 —</div>
+              <div class="welcome-module-name">Construire sa Stratégie IA</div>
+            </div>
+            <div class="welcome-module">
+              <div class="welcome-module-num">04 —</div>
+              <div class="welcome-module-name">Gouvernance & Éthique</div>
+            </div>
+            <div class="welcome-module">
+              <div class="welcome-module-num">05 —</div>
+              <div class="welcome-module-name">Plan d'Action</div>
+            </div>
+            <div class="welcome-module">
+              <div class="welcome-module-num">⬡ —</div>
+              <div class="welcome-module-name">Tableau de Bord Personnel</div>
+            </div>
+          </div>
+          <button class="start-btn" onclick="navigate('m1')">Commencer la formation →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MODULE 1 : Comprendre l'IA ══ -->
+    <div id="screen-m1" class="screen">
+      <div class="module-header" data-number="01">
+        <div class="module-tag">Module 01</div>
+        <h1 class="module-title">Comprendre l'IA dans l'éducation</h1>
+        <p class="module-desc">Cartographier les réalités de l'IA scolaire pour dépasser les idées reçues et poser des bases solides à votre réflexion stratégique.</p>
+      </div>
+      <div class="module-body">
+
+        <div class="section-title">Qu'est-ce que l'IA concrètement ?</div>
+        <p>L'intelligence artificielle désigne un ensemble de techniques permettant à des machines d'effectuer des tâches qui requièrent normalement l'intelligence humaine : reconnaître des images, comprendre le langage, générer du texte, prendre des décisions. En éducation, elle se manifeste déjà dans de nombreux outils quotidiens.</p>
+
+        <div class="tag-row">
+          <span class="tag tag-gold">IA générative</span>
+          <span class="tag tag-gold">Apprentissage automatique</span>
+          <span class="tag tag-ink">Traitement du langage</span>
+          <span class="tag tag-ink">Personnalisation adaptative</span>
+          <span class="tag tag-sage">Analyse de données</span>
+          <span class="tag tag-sage">Tuteurs intelligents</span>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-item" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-header-text">
+                <span class="accordion-icon">🤖</span>
+                L'IA générative (ChatGPT, Copilot, Mistral…)
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <div class="accordion-content">
+                Ces outils génèrent du texte, des images, du code à partir d'instructions en langage naturel. En éducation, ils permettent la différenciation pédagogique, la création de ressources, le soutien à la rédaction. Leur diffusion massive depuis 2022 constitue un tournant historique : pour la première fois, des élèves et des enseignants interagissent quotidiennement avec une IA conversationnelle.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-header-text">
+                <span class="accordion-icon">📊</span>
+                Les systèmes d'analyse prédictive
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <div class="accordion-content">
+                Ces outils analysent les parcours d'apprentissage pour anticiper les difficultés, identifier les élèves à risque de décrochage, ou recommander des remédiations. Ils s'appuient sur les données des ENT, cahiers de textes numériques, et résultats d'évaluation. Leur utilisation soulève des questions de protection des données et d'éthique algorithmique.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-header-text">
+                <span class="accordion-icon">🎯</span>
+                Les tuteurs intelligents et plateformes adaptatives
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <div class="accordion-content">
+                Des plateformes comme Lalilo, Tactiléo ou Khan Academy adaptent en temps réel le niveau de difficulté et le type d'exercices à chaque élève. Ces systèmes peuvent constituer de véritables alliés pour la différenciation, à condition d'être intégrés dans une démarche pédagogique réfléchie.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">L'IA dans mon établissement aujourd'hui</div>
+        <p>Avant de définir une stratégie, il est essentiel d'établir un état des lieux objectif. Quels outils sont déjà utilisés ? Par qui ? Dans quel cadre ?</p>
+
+        <div class="reflection-box">
+          <div class="reflection-prompt">"Faites l'inventaire : quels outils numériques ou d'IA sont déjà présents dans votre établissement, même à titre individuel ?"</div>
+          <div class="reflection-hint">Pensez aux enseignants, CPE, personnel administratif, élèves. Listez sans juger.</div>
+          <textarea id="r1-etatdeslieux" placeholder="Ex : plusieurs enseignants utilisent ChatGPT pour préparer leurs cours, un logiciel de gestion administrative intègre de l'analyse prédictive…" oninput="saveReflection('r1-etatdeslieux')"></textarea>
+          <button class="save-btn" onclick="markSaved(this)">↳ Enregistrer</button>
+        </div>
+
+        <div class="section-title">5 mythes à déconstruire</div>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">🚫</div>
+            <div class="card-title">L'IA va remplacer les enseignants</div>
+            <div class="card-text">Faux. L'IA automatise certaines tâches répétitives mais ne peut pas assurer la relation éducative, le discernement pédagogique ou la gestion du groupe-classe.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🚫</div>
+            <div class="card-title">C'est trop complexe pour l'école</div>
+            <div class="card-text">Faux. L'appropriation progressive, la formation des équipes et un accompagnement adapté permettent à tous les établissements d'intégrer l'IA de façon raisonnée.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🚫</div>
+            <div class="card-title">L'IA est toujours neutre et objective</div>
+            <div class="card-text">Faux. Les algorithmes reproduisent et amplifient les biais présents dans les données d'entraînement. Un regard critique est indispensable.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🚫</div>
+            <div class="card-title">Attendre la directive ministérielle</div>
+            <div class="card-text">Insuffisant. Le cadre réglementaire évolue vite. Les établissements proactifs construisent leur doctrine sans attendre, dans le respect des textes existants.</div>
+          </div>
+        </div>
+
+        <div class="section-title">Quiz de positionnement</div>
+        <p>Évaluez votre compréhension de départ sur l'IA en éducation.</p>
+
+        <div class="quiz-container">
+          <div class="quiz-question">Quel est le principal risque identifié par les chercheurs concernant l'usage de l'IA générative par les élèves ?</div>
+          <div class="quiz-options">
+            <div class="quiz-option" onclick="answerQuiz(this, false, 'q1')">
+              <span class="quiz-letter">A</span>
+              La surcharge des serveurs scolaires
+            </div>
+            <div class="quiz-option" onclick="answerQuiz(this, false, 'q1')">
+              <span class="quiz-letter">B</span>
+              Le remplacement total des manuels scolaires
+            </div>
+            <div class="quiz-option" onclick="answerQuiz(this, true, 'q1')">
+              <span class="quiz-letter">C</span>
+              L'atrophie des compétences cognitives si l'IA se substitue à l'effort d'apprentissage
+            </div>
+            <div class="quiz-option" onclick="answerQuiz(this, false, 'q1')">
+              <span class="quiz-letter">D</span>
+              L'incompatibilité avec les systèmes d'exploitation scolaires
+            </div>
+          </div>
+          <div class="quiz-feedback" id="q1-feedback"></div>
+        </div>
+
+        <div class="quiz-container">
+          <div class="quiz-question">Le règlement européen sur l'IA (AI Act) classe les systèmes d'IA utilisés pour évaluer les élèves dans quelle catégorie de risque ?</div>
+          <div class="quiz-options">
+            <div class="quiz-option" onclick="answerQuiz(this, false, 'q2')">
+              <span class="quiz-letter">A</span>
+              Risque minimal
+            </div>
+            <div class="quiz-option" onclick="answerQuiz(this, true, 'q2')">
+              <span class="quiz-letter">B</span>
+              Risque élevé
+            </div>
+            <div class="quiz-option" onclick="answerQuiz(this, false, 'q2')">
+              <span class="quiz-letter">C</span>
+              Risque inacceptable (interdit)
+            </div>
+            <div class="quiz-option" onclick="answerQuiz(this, false, 'q2')">
+              <span class="quiz-letter">D</span>
+              Non réglementé
+            </div>
+          </div>
+          <div class="quiz-feedback" id="q2-feedback"></div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Point clé à retenir</div>
+          <p>L'IA n'est pas une technologie parmi d'autres. Elle transforme en profondeur les métiers, les apprentissages et les organisations. Votre rôle de chef d'établissement est de <strong>piloter cette transition</strong>, non de la subir.</p>
+        </div>
+
+      </div>
+      <div class="module-nav">
+        <button class="btn btn-secondary" onclick="navigate('welcome')">← Accueil</button>
+        <button class="btn btn-primary" onclick="completeAndNavigate('m1', 'm2')">Module suivant →</button>
+      </div>
+    </div>
+
+    <!-- ══ MODULE 2 : PROSPECTIVE ══ -->
+    <div id="screen-m2" class="screen">
+      <div class="module-header" data-number="02">
+        <div class="module-tag">Module 02</div>
+        <h1 class="module-title">Prospective & Construction de Scénarios</h1>
+        <p class="module-desc">Utiliser les méthodes de prospective pour anticiper les futurs possibles de l'éducation à l'ère de l'IA et préparer votre établissement.</p>
+      </div>
+      <div class="module-body">
+
+        <div class="pull-quote">
+          <p class="pull-quote-text">La prospective n'est pas prédire l'avenir, c'est explorer les possibles pour mieux décider aujourd'hui.</p>
+          <div class="pull-quote-author">— Michel Godet, La prospective stratégique</div>
+        </div>
+
+        <div class="section-title">Pourquoi la prospective ?</div>
+        <p>L'IA évolue à une vitesse sans précédent. Les décisions stratégiques que vous prenez aujourd'hui — en matière d'équipement, de formation des équipes, de projet d'établissement — auront des effets sur 5 à 10 ans. La prospective vous donne des outils pour <strong>naviguer dans l'incertitude</strong> avec méthode.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">🔭</div>
+            <div class="card-title">Signaux faibles</div>
+            <div class="card-text">Identifier les tendances émergentes avant qu'elles deviennent des déferlantes. Quels usages discrets préfigurent les pratiques de demain ?</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚡</div>
+            <div class="card-title">Ruptures</div>
+            <div class="card-text">Anticiper les événements qui peuvent tout changer : réglementation, découverte technologique, crise sociale. ChatGPT en est un exemple récent.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🗺️</div>
+            <div class="card-title">Scénarios contrastés</div>
+            <div class="card-text">Explorer plusieurs futurs plausibles — et non le seul avenir probable — pour tester la robustesse de vos décisions.</div>
+          </div>
+        </div>
+
+        <div class="section-title">Les tendances lourdes à surveiller</div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">HORIZON 2025–2026</div>
+            <div class="timeline-title">Généralisation des assistants IA dans les usages professionnels</div>
+            <div class="timeline-text">Les enseignants, CPE et personnel administratif utilisent massivement des outils d'IA. La question n'est plus "faut-il ?" mais "comment accompagner ?"</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">HORIZON 2026–2028</div>
+            <div class="timeline-title">IA tuteurs et personnalisation à grande échelle</div>
+            <div class="timeline-text">Des systèmes capables d'adapter le parcours de chaque élève en temps réel se déploient. Redéfinition du rôle de l'enseignant comme "orchestrateur".</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">HORIZON 2028–2032</div>
+            <div class="timeline-title">Reconfiguration des compétences et des diplômes</div>
+            <div class="timeline-text">Le marché du travail exige de nouvelles compétences. Les diplômes traditionnels sont contestés. L'école doit repenser ce qu'elle enseigne et pourquoi.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">HORIZON 2032+</div>
+            <div class="timeline-title">IA générale et nouveaux paradigmes éducatifs</div>
+            <div class="timeline-text">Si l'IA atteint des capacités générales, les fondements mêmes de l'enseignement sont remis en question. Scénario incertain mais à intégrer dans la réflexion.</div>
+          </div>
+        </div>
+
+        <div class="section-title">Constructeur de scénarios interactif</div>
+        <p>Ajustez les deux axes pour générer un scénario prospectif pour votre établissement à horizon 5 ans.</p>
+
+        <div class="scenario-builder">
+          <div class="scenario-title">Outil Scénarios 2030</div>
+          <div class="scenario-desc">Déplacez les curseurs pour explorer les quatre futurs possibles.</div>
+          <div class="scenario-axes">
+            <div class="axis-group">
+              <label>Vitesse d'adoption de l'IA</label>
+              <input type="range" min="0" max="100" value="50" class="axis-slider" id="axis-adoption" oninput="updateScenario()">
+              <div class="axis-labels"><span>Lente & prudente</span><span>Rapide & massive</span></div>
+            </div>
+            <div class="axis-group">
+              <label>Pilotage institutionnel</label>
+              <input type="range" min="0" max="100" value="50" class="axis-slider" id="axis-pilotage" oninput="updateScenario()">
+              <div class="axis-labels"><span>Décentralisé / autonome</span><span>Centralisé / directif</span></div>
+            </div>
+          </div>
+          <div class="scenario-result" id="scenario-result">
+            <div class="scenario-result-title" id="scenario-name">Scénario : Transition maîtrisée</div>
+            <div class="scenario-result-text" id="scenario-desc">Déplacez les curseurs pour générer votre scénario…</div>
+          </div>
+        </div>
+
+        <div class="section-title">Exercice : Signaux faibles dans votre contexte</div>
+
+        <div class="reflection-box">
+          <div class="reflection-prompt">"Quels signaux faibles observez-vous déjà dans votre établissement ou territoire qui pourraient préfigurer une transformation majeure liée à l'IA ?"</div>
+          <div class="reflection-hint">Un élève qui rend des travaux suspectes, un enseignant qui expérimente en solo, une inquiétude des parents lors du conseil d'école…</div>
+          <textarea id="r2-signaux" placeholder="Décrivez 2 à 3 signaux que vous avez repérés…" oninput="saveReflection('r2-signaux')"></textarea>
+          <button class="save-btn" onclick="markSaved(this)">↳ Enregistrer</button>
+        </div>
+
+        <div class="section-title">Les 4 scénarios de l'école de 2030</div>
+
+        <div class="tab-row">
+          <div class="tab-pill active" onclick="switchTab(this, 'tab-s1')">🌱 École Augmentée</div>
+          <div class="tab-pill" onclick="switchTab(this, 'tab-s2')">⚡ Disruption Totale</div>
+          <div class="tab-pill" onclick="switchTab(this, 'tab-s3')">🏰 Résistance Citoyenne</div>
+          <div class="tab-pill" onclick="switchTab(this, 'tab-s4')">⚖️ Régulation Équilibrée</div>
+        </div>
+
+        <div id="tab-s1" class="tab-content active">
+          <div class="callout info">
+            <div class="callout-title">Scénario A — L'École Augmentée</div>
+            <p>L'IA devient un assistant pédagogique généralisé. Les enseignants sont recentrés sur la relation humaine, le débat, la créativité. Les résultats s'améliorent. Les inégalités persistent mais changent de nature : l'accès au capital "prompt engineering" et à la pensée critique devient le nouvel enjeu de justice scolaire.</p>
+          </div>
+        </div>
+        <div id="tab-s2" class="tab-content">
+          <div class="callout warning">
+            <div class="callout-title">Scénario B — Disruption Totale</div>
+            <p>Les EdTech privées colonisent l'espace éducatif. Les parents choisissent des parcours hyper-personnalisés hors du cadre scolaire. L'institution publique perd sa centralité. Les établissements se transforment en lieux de socialisation et de certification, vidés de leur contenu pédagogique traditionnel.</p>
+          </div>
+        </div>
+        <div id="tab-s3" class="tab-content">
+          <div class="callout">
+            <div class="callout-title">Scénario C — Résistance Citoyenne</div>
+            <p>Face aux dérives, une forte réaction sociale impose une régulation stricte de l'IA à l'école. Les établissements choisissent délibérément des pratiques "low tech". Les compétences manuelles, le raisonnement sans assistance et la créativité non augmentée deviennent des valeurs différenciantes.</p>
+          </div>
+        </div>
+        <div id="tab-s4" class="tab-content">
+          <div class="callout success">
+            <div class="callout-title">Scénario D — Régulation Équilibrée</div>
+            <p>Un cadre réglementaire robuste (AI Act, charte nationale) encadre les usages. Les établissements développent une doctrine locale, les enseignants sont formés, les élèves apprennent à utiliser l'IA de façon critique. L'école reste un espace de formation citoyenne intégrant le numérique.</p>
+          </div>
+        </div>
+
+        <div class="reflection-box">
+          <div class="reflection-prompt">"Quel scénario vous semble le plus probable pour votre établissement ? Lequel vous préoccupe le plus ? Comment vous y préparer ?"</div>
+          <textarea id="r2-scenarios" placeholder="Analysez les scénarios à l'aune de votre contexte local…" oninput="saveReflection('r2-scenarios')"></textarea>
+          <button class="save-btn" onclick="markSaved(this)">↳ Enregistrer</button>
+        </div>
+
+      </div>
+      <div class="module-nav">
+        <button class="btn btn-secondary" onclick="navigate('m1')">← Module 01</button>
+        <button class="btn btn-primary" onclick="completeAndNavigate('m2', 'm3')">Module suivant →</button>
+      </div>
+    </div>
+
+    <!-- ══ MODULE 3 : STRATÉGIE ══ -->
+    <div id="screen-m3" class="screen">
+      <div class="module-header" data-number="03">
+        <div class="module-tag">Module 03</div>
+        <h1 class="module-title">Construire sa Stratégie IA d'Établissement</h1>
+        <p class="module-desc">Du diagnostic à la vision : élaborer une stratégie ancrée dans les réalités de votre établissement et cohérente avec votre projet éducatif.</p>
+      </div>
+      <div class="module-body">
+
+        <div class="section-title">Diagnostic : Analyse SWOT de votre établissement</div>
+        <p>Commencez par un état des lieux honnête. La stratégie efficace part toujours du réel, pas de l'idéal. Complétez la matrice ci-dessous pour votre établissement.</p>
+
+        <div class="swot-grid">
+          <div class="swot-cell swot-S">
+            <div class="swot-label">Forces (Strengths)</div>
+            <textarea id="swot-s" placeholder="Ex : équipe pédagogique motivée, ENT bien adopté, partenariats locaux…" oninput="saveReflection('swot-s')"></textarea>
+          </div>
+          <div class="swot-cell swot-W">
+            <div class="swot-label">Faiblesses (Weaknesses)</div>
+            <textarea id="swot-w" placeholder="Ex : manque de formation des enseignants, parc informatique vieillissant…" oninput="saveReflection('swot-w')"></textarea>
+          </div>
+          <div class="swot-cell swot-O">
+            <div class="swot-label">Opportunités (Opportunities)</div>
+            <textarea id="swot-o" placeholder="Ex : financements numériques disponibles, dynamique de territoire, demande des familles…" oninput="saveReflection('swot-o')"></textarea>
+          </div>
+          <div class="swot-cell swot-T">
+            <div class="swot-label">Menaces (Threats)</div>
+            <textarea id="swot-t" placeholder="Ex : fracture numérique, résistance interne, risque de désinformation, pression des EdTech…" oninput="saveReflection('swot-t')"></textarea>
+          </div>
+        </div>
+
+        <div class="section-title">Les 3 dimensions d'une stratégie IA réussie</div>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">👁️</div>
+            <div class="card-title">Vision & Culture</div>
+            <div class="card-text">Définir une vision partagée de la place de l'IA dans votre établissement. Construire une culture numérique éclairée, critique et créatrice.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔧</div>
+            <div class="card-title">Compétences & Formation</div>
+            <div class="card-text">Former en continu les équipes. Identifier les pionniers et les accompagner. Créer des espaces d'expérimentation sécurisés.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚙️</div>
+            <div class="card-title">Outils & Organisation</div>
+            <div class="card-text">Choisir des outils conformes (RGPD, AI Act). Adapter l'organisation scolaire pour intégrer les nouveaux usages sans désorganiser.</div>
+          </div>
+        </div>
+
+        <div class="section-title">Définir votre vision stratégique</div>
+
+        <div class="callout info">
+          <div class="callout-title">Méthode : La vision en 3 temps</div>
+          <p>Une bonne vision stratégique répond à : <strong>Où en sommes-nous ?</strong> (diagnostic) → <strong>Où voulons-nous aller ?</strong> (horizon) → <strong>Comment y aller ?</strong> (axes stratégiques).</p>
+        </div>
+
+        <div class="reflection-box">
+          <div class="reflection-prompt">"En une phrase, quelle est la vision de votre établissement concernant l'IA à horizon 3 ans ?"</div>
+          <div class="reflection-hint">Soyez concret, ambitieux mais réaliste. Cette phrase pourrait figurer dans votre projet d'établissement.</div>
+          <textarea id="r3-vision" placeholder="Ex : 'Notre lycée forme des citoyens capables d'utiliser l'IA de façon critique et créative, en garantissant l'équité d'accès pour tous.'" oninput="saveReflection('r3-vision')"></textarea>
+          <button class="save-btn" onclick="markSaved(this)">↳ Enregistrer</button>
+        </div>
+
+        <div class="section-title">Matrice de priorisation</div>
+        <p>Positionnez vos projets selon leur impact sur les apprentissages et leur faisabilité dans votre contexte.</p>
+
+        <div class="matrix-container">
+          <div class="matrix-title">Matrice Impact / Faisabilité</div>
+          <div class="matrix-desc">Notez dans chaque quadrant les projets ou usages IA que vous envisagez.</div>
+          <div class="matrix-2x2">
+            <div class="matrix-cell" style="border-right:1px solid var(--border); border-bottom:1px solid var(--border);">
+              <div class="matrix-cell-label" style="color:var(--rust)">⬆ Impact fort / ⬅ Difficile</div>
+              <textarea id="mat-tl" placeholder="Projets ambitieux à préparer sur le long terme…" oninput="saveReflection('mat-tl')"></textarea>
+            </div>
+            <div class="matrix-cell" style="border-bottom:1px solid var(--border);">
+              <div class="matrix-cell-label" style="color:var(--sage)">⬆ Impact fort / ➡ Facile</div>
+              <textarea id="mat-tr" placeholder="Quick wins à impact élevé — PRIORITÉ !" oninput="saveReflection('mat-tr')"></textarea>
+            </div>
+            <div class="matrix-cell" style="border-right:1px solid var(--border);">
+              <div class="matrix-cell-label" style="color:var(--muted)">⬇ Impact faible / ⬅ Difficile</div>
+              <textarea id="mat-bl" placeholder="À éviter ou reporter…" oninput="saveReflection('mat-bl')"></textarea>
+            </div>
+            <div class="matrix-cell">
+              <div class="matrix-cell-label" style="color:var(--indigo-mid)">⬇ Impact faible / ➡ Facile</div>
+              <textarea id="mat-br" placeholder="Petites victoires de confort — utiles mais secondaires…" oninput="saveReflection('mat-br')"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Quiz stratégique</div>
+
+        <div class="quiz-container">
+          <div class="quiz-question">Dans la conduite du changement liée à l'IA, quelle approche est généralement recommandée pour maximiser l'adhésion des équipes enseignantes ?</div>
+          <div class="quiz-options">
+            <div class="quiz-option" onclick="answerQuiz(this, false, 'q3')">
+              <span class="quiz-letter">A</span>
+              Imposer une charte d'usage obligatoire dès le départ
+            </div>
+            <div class="quiz-option" onclick="answerQuiz(this, true, 'q3')">
+              <span class="quiz-letter">B</span>
+              Identifier et soutenir des enseignants pionniers, puis diffuser par l'exemple
+            </div>
+            <div class="quiz-option" onclick="answerQuiz(this, false, 'q3')">
+              <span class="quiz-letter">C</span>
+              Attendre que tous soient volontaires avant d'agir
+            </div>
+            <div class="quiz-option" onclick="answerQuiz(this, false, 'q3')">
+              <span class="quiz-letter">D</span>
+              Déléguer entièrement à un prestataire externe
+            </div>
+          </div>
+          <div class="quiz-feedback" id="q3-feedback"></div>
+        </div>
+
+        <div class="reflection-box">
+          <div class="reflection-prompt">"Identifiez 2 ou 3 personnes-ressources dans votre établissement qui pourraient être les ambassadrices de votre stratégie IA."</div>
+          <textarea id="r3-ambassadeurs" placeholder="Leurs rôles, leurs compétences, ce dont elles auraient besoin pour être soutenues…" oninput="saveReflection('r3-ambassadeurs')"></textarea>
+          <button class="save-btn" onclick="markSaved(this)">↳ Enregistrer</button>
+        </div>
+
+      </div>
+      <div class="module-nav">
+        <button class="btn btn-secondary" onclick="navigate('m2')">← Module 02</button>
+        <button class="btn btn-primary" onclick="completeAndNavigate('m3', 'm4')">Module suivant →</button>
+      </div>
+    </div>
+
+    <!-- ══ MODULE 4 : GOUVERNANCE ══ -->
+    <div id="screen-m4" class="screen">
+      <div class="module-header" data-number="04">
+        <div class="module-tag">Module 04</div>
+        <h1 class="module-title">Gouvernance & Éthique de l'IA</h1>
+        <p class="module-desc">Encadrer les usages, protéger les personnes et exercer un leadership éthique face aux défis que pose l'IA dans votre communauté éducative.</p>
+      </div>
+      <div class="module-body">
+
+        <div class="section-title">Le cadre réglementaire essentiel</div>
+
+        <div class="accordion">
+          <div class="accordion-item" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-header-text">
+                <span class="accordion-icon">🇪🇺</span>
+                AI Act européen (2024)
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <div class="accordion-content">
+                <strong>Entré en vigueur en 2024</strong>, l'AI Act classe les systèmes d'IA par niveau de risque. Les systèmes d'évaluation des élèves, de gestion du décrochage ou de surveillance sont classés <strong>à risque élevé</strong> : ils requièrent transparence, auditabilité et supervision humaine obligatoire. Toute IA interdite à l'école : les systèmes de scoring social ou d'identification biométrique en temps réel dans les espaces publics (sauf exceptions de sécurité).
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-header-text">
+                <span class="accordion-icon">🔒</span>
+                RGPD et protection des données des mineurs
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <div class="accordion-content">
+                Les données des élèves mineurs bénéficient d'une protection renforcée. Tout outil IA utilisé à l'école doit avoir un <strong>accord de traitement des données</strong> conforme. Vigilance sur : les outils gratuits qui monétisent les données, les plateformes hébergées hors UE, la collecte de données biométriques ou comportementales. La CNIL publie des recommandations spécifiques pour l'éducation.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+              <div class="accordion-header-text">
+                <span class="accordion-icon">📋</span>
+                Cadre national éducation & numérique
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <div class="accordion-content">
+                Le MEN publie des circulaires et guides sur l'usage de l'IA à l'école. Le <strong>Cadre de référence des compétences numériques (CRCN)</strong> intègre désormais des compétences liées à l'IA. Les académies développent des doctrines locales. Votre établissement doit s'inscrire dans ces cadres tout en adaptant à son contexte propre.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">5 principes éthiques pour votre leadership</div>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">⚖️</div>
+            <div class="card-title">Équité</div>
+            <div class="card-text">S'assurer que l'IA ne creuse pas les inégalités existantes. Garantir l'accès à tous les élèves, quelle que soit leur situation.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔍</div>
+            <div class="card-title">Transparence</div>
+            <div class="card-text">Communiquer clairement sur les outils utilisés, leurs limites et les données collectées. Les élèves et familles ont droit à l'information.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🛡️</div>
+            <div class="card-title">Protection</div>
+            <div class="card-text">Protéger les données des mineurs. Refuser les outils non conformes, même gratuits et populaires. Le responsable légal, c'est vous.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🧠</div>
+            <div class="card-title">Esprit critique</div>
+            <div class="card-text">Former élèves et enseignants à questionner les sorties de l'IA. L'acceptation sans vérification est un risque pédagogique majeur.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">👤</div>
+            <div class="card-title">Primauté humaine</div>
+            <div class="card-text">L'IA assiste, l'humain décide. Maintenir la supervision humaine sur toutes les décisions ayant un impact sur les personnes.</div>
+          </div>
+        </div>
+
+        <div class="section-title">Construire votre charte d'usage de l'IA</div>
+
+        <div class="callout success">
+          <div class="callout-title">Outil pratique</div>
+          <p>Une charte d'établissement sur l'IA doit être co-construite avec les enseignants, les élèves et les parents. Elle définit les usages autorisés, encadrés et interdits, ainsi que les principes qui guident toutes les décisions.</p>
+        </div>
+
+        <div class="reflection-box">
+          <div class="reflection-prompt">"Listez 3 principes non négociables qui figureront dans votre charte d'usage de l'IA. Justifiez chacun."</div>
+          <div class="reflection-hint">Ces principes doivent être compréhensibles par tous : élèves, parents, enseignants.</div>
+          <textarea id="r4-charte" placeholder="Principe 1 : …
+Principe 2 : …
+Principe 3 : …" oninput="saveReflection('r4-charte')"></textarea>
+          <button class="save-btn" onclick="markSaved(this)">↳ Enregistrer</button>
+        </div>
+
+        <div class="section-title">Cas pratiques : que feriez-vous ?</div>
+
+        <div class="quiz-container">
+          <div class="quiz-question">Un enseignant utilise un outil IA gratuit pour analyser les résultats de ses élèves et identifier ceux en difficulté. L'outil est hébergé aux États-Unis. Quelle est votre réaction en tant que chef d'établissement ?</div>
+          <div class="quiz-options">
+            <div class="quiz-option" onclick="answerQuiz(this, false, 'q4')">
+              <span class="quiz-letter">A</span>
+              Vous l'encouragez car l'intention pédagogique est bonne
+            </div>
+            <div class="quiz-option" onclick="answerQuiz(this, false, 'q4')">
+              <span class="quiz-letter">B</span>
+              Vous ignorez la situation, ce n'est pas votre responsabilité
+            </div>
+            <div class="quiz-option" onclick="answerQuiz(this, true, 'q4')">
+              <span class="quiz-letter">C</span>
+              Vous engagez un dialogue avec l'enseignant, vérifiez la conformité RGPD et cherchez une alternative conforme
+            </div>
+            <div class="quiz-option" onclick="answerQuiz(this, false, 'q4')">
+              <span class="quiz-letter">D</span>
+              Vous interdisez immédiatement tout usage d'IA dans l'établissement
+            </div>
+          </div>
+          <div class="quiz-feedback" id="q4-feedback"></div>
+        </div>
+
+        <div class="callout warning">
+          <div class="callout-title">Point de vigilance : l'intégrité académique</div>
+          <p>L'IA générative repose la question du plagiat et de l'authenticité des travaux. Il ne s'agit pas d'interdire mais de <strong>redéfinir les compétences évaluées</strong> et les formes d'évaluation. C'est un défi pédagogique autant que disciplinaire.</p>
+        </div>
+
+        <div class="reflection-box">
+          <div class="reflection-prompt">"Comment votre établissement va-t-il aborder la question de l'intégrité académique à l'ère de l'IA ?"</div>
+          <textarea id="r4-integrite" placeholder="Réfléchissez aux modalités d'évaluation, à la communication aux familles, aux règles du règlement intérieur…" oninput="saveReflection('r4-integrite')"></textarea>
+          <button class="save-btn" onclick="markSaved(this)">↳ Enregistrer</button>
+        </div>
+
+      </div>
+      <div class="module-nav">
+        <button class="btn btn-secondary" onclick="navigate('m3')">← Module 03</button>
+        <button class="btn btn-primary" onclick="completeAndNavigate('m4', 'm5')">Module suivant →</button>
+      </div>
+    </div>
+
+    <!-- ══ MODULE 5 : PLAN D'ACTION ══ -->
+    <div id="screen-m5" class="screen">
+      <div class="module-header" data-number="05">
+        <div class="module-tag">Module 05</div>
+        <h1 class="module-title">Plan d'Action & Mise en Œuvre</h1>
+        <p class="module-desc">Passer de la réflexion à l'action : construire un plan concret, priorisé et adaptatif pour déployer votre stratégie IA dans les prochains mois.</p>
+      </div>
+      <div class="module-body">
+
+        <div class="section-title">Les 5 étapes du déploiement stratégique</div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">ÉTAPE 1 — MOIS 1–2</div>
+            <div class="timeline-title">Mobilisation et état des lieux</div>
+            <div class="timeline-text">Présenter le projet aux équipes, au CA. Réaliser un audit des usages existants. Identifier les besoins de formation prioritaires.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">ÉTAPE 2 — MOIS 2–4</div>
+            <div class="timeline-title">Formation et expérimentation</div>
+            <div class="timeline-text">Former les pionniers. Lancer 2–3 projets pilotes dans des contextes variés. Documenter les apprentissages sans pression de résultats.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">ÉTAPE 3 — MOIS 4–6</div>
+            <div class="timeline-title">Cadrage et doctrine</div>
+            <div class="timeline-text">Rédiger la charte d'usage avec la communauté éducative. Définir les outils validés et les protocoles de conformité RGPD.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">ÉTAPE 4 — MOIS 6–12</div>
+            <div class="timeline-title">Déploiement et diffusion</div>
+            <div class="timeline-text">Élargir les usages à plus d'enseignants. Intégrer l'IA dans le projet d'établissement et les instances (CA, conseil pédagogique).</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">ÉTAPE 5 — CONTINU</div>
+            <div class="timeline-title">Évaluation et ajustement</div>
+            <div class="timeline-text">Mesurer les effets sur les apprentissages et l'organisation. Ajuster la stratégie à la lumière des résultats et des évolutions technologiques.</div>
+          </div>
+        </div>
+
+        <div class="section-title">Mon Plan d'Actions Prioritaires</div>
+        <p>Cochez les actions que vous vous engagez à réaliser dans votre établissement. Elles alimenteront votre tableau de bord final.</p>
+
+        <div class="action-plan">
+          <div class="action-plan-header">
+            <span>Actions Court Terme (0–3 mois)</span>
+            <span id="count-court" style="font-size:12px; font-weight:300; opacity:0.7">0 sélectionnée(s)</span>
+          </div>
+          <div class="action-items">
+            <div class="action-item">
+              <div class="action-checkbox" onclick="toggleAction(this, 'count-court')"></div>
+              <div class="action-text"><span class="action-horizon h-court">Court</span>Réaliser un sondage anonyme sur les usages IA actuels des enseignants</div>
+            </div>
+            <div class="action-item">
+              <div class="action-checkbox" onclick="toggleAction(this, 'count-court')"></div>
+              <div class="action-text"><span class="action-horizon h-court">Court</span>Organiser une réunion d'information sur l'IA avec l'équipe pédagogique</div>
+            </div>
+            <div class="action-item">
+              <div class="action-checkbox" onclick="toggleAction(this, 'count-court')"></div>
+              <div class="action-text"><span class="action-horizon h-court">Court</span>Identifier 2 enseignants volontaires pour des expérimentations pilotes</div>
+            </div>
+            <div class="action-item">
+              <div class="action-checkbox" onclick="toggleAction(this, 'count-court')"></div>
+              <div class="action-text"><span class="action-horizon h-court">Court</span>Vérifier la conformité RGPD des outils numériques déjà utilisés</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-plan" style="margin-top:1rem">
+          <div class="action-plan-header">
+            <span>Actions Moyen Terme (3–9 mois)</span>
+            <span id="count-moyen" style="font-size:12px; font-weight:300; opacity:0.7">0 sélectionnée(s)</span>
+          </div>
+          <div class="action-items">
+            <div class="action-item">
+              <div class="action-checkbox" onclick="toggleAction(this, 'count-moyen')"></div>
+              <div class="action-text"><span class="action-horizon h-moyen">Moyen</span>Co-rédiger une charte d'usage de l'IA avec la communauté éducative</div>
+            </div>
+            <div class="action-item">
+              <div class="action-checkbox" onclick="toggleAction(this, 'count-moyen')"></div>
+              <div class="action-text"><span class="action-horizon h-moyen">Moyen</span>Proposer une formation à l'IA dans le plan de formation de l'établissement</div>
+            </div>
+            <div class="action-item">
+              <div class="action-checkbox" onclick="toggleAction(this, 'count-moyen')"></div>
+              <div class="action-text"><span class="action-horizon h-moyen">Moyen</span>Intégrer l'IA dans les axes du projet d'établissement</div>
+            </div>
+            <div class="action-item">
+              <div class="action-checkbox" onclick="toggleAction(this, 'count-moyen')"></div>
+              <div class="action-text"><span class="action-horizon h-moyen">Moyen</span>Organiser une journée "IA & pédagogie" avec les élèves et les familles</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-plan" style="margin-top:1rem">
+          <div class="action-plan-header">
+            <span>Actions Long Terme (9–24 mois)</span>
+            <span id="count-long" style="font-size:12px; font-weight:300; opacity:0.7">0 sélectionnée(s)</span>
+          </div>
+          <div class="action-items">
+            <div class="action-item">
+              <div class="action-checkbox" onclick="toggleAction(this, 'count-long')"></div>
+              <div class="action-text"><span class="action-horizon h-long">Long</span>Déployer un parcours de formation systématique à l'IA pour tous les enseignants</div>
+            </div>
+            <div class="action-item">
+              <div class="action-checkbox" onclick="toggleAction(this, 'count-long')"></div>
+              <div class="action-text"><span class="action-horizon h-long">Long</span>Intégrer des compétences IA dans les progressions disciplinaires</div>
+            </div>
+            <div class="action-item">
+              <div class="action-checkbox" onclick="toggleAction(this, 'count-long')"></div>
+              <div class="action-text"><span class="action-horizon h-long">Long</span>Évaluer l'impact de la stratégie IA sur les résultats et le bien-être scolaire</div>
+            </div>
+            <div class="action-item">
+              <div class="action-checkbox" onclick="toggleAction(this, 'count-long')"></div>
+              <div class="action-text"><span class="action-horizon h-long">Long</span>Partager les pratiques avec d'autres établissements (réseau, académie)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Mon engagement personnel</div>
+
+        <div class="reflection-box">
+          <div class="reflection-prompt">"En tant que chef d'établissement, quel engagement concret prenez-vous à l'issue de cette formation ? Quelle sera votre première action dès demain matin ?"</div>
+          <div class="reflection-hint">Soyez précis. Un engagement vague ne se réalise pas. Nommez l'action, la date et la personne concernée.</div>
+          <textarea id="r5-engagement" placeholder="Mon premier engagement : contacter [personne] avant le [date] pour [action précise]…" oninput="saveReflection('r5-engagement')"></textarea>
+          <button class="save-btn" onclick="markSaved(this)">↳ Enregistrer</button>
+        </div>
+
+        <div class="callout success">
+          <div class="callout-title">Vous avez terminé les 5 modules !</div>
+          <p>Consultez votre <strong>tableau de bord personnel</strong> pour retrouver toutes vos réflexions, synthétiser votre vision et exporter votre plan d'action.</p>
+        </div>
+
+      </div>
+      <div class="module-nav">
+        <button class="btn btn-secondary" onclick="navigate('m4')">← Module 04</button>
+        <button class="btn btn-primary" onclick="completeAndNavigate('m5', 'synthese')">Voir mon tableau de bord →</button>
+      </div>
+    </div>
+
+    <!-- ══ TABLEAU DE BORD ══ -->
+    <div id="screen-synthese" class="screen">
+      <div class="module-header" data-number="⬡">
+        <div class="module-tag">Synthèse Personnelle</div>
+        <h1 class="module-title">Mon Tableau de Bord</h1>
+        <p class="module-desc">Retrouvez ici toutes vos réflexions, votre progression et les éléments clés de votre stratégie personnelle.</p>
+      </div>
+      <div class="module-body">
+
+        <div class="progress-ring-container">
+          <svg width="64" height="64" viewBox="0 0 64 64" class="progress-ring">
+            <circle cx="32" cy="32" r="26" fill="none" stroke="#e8e4dc" stroke-width="4"/>
+            <circle cx="32" cy="32" r="26" fill="none" stroke="#c8962a" stroke-width="4"
+              stroke-dasharray="163.4" id="progress-ring-circle" stroke-dashoffset="163.4"
+              stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="progress-ring-text" id="ring-percent">0%</div>
+            <div class="progress-ring-label">Progression globale</div>
+          </div>
+          <div style="margin-left:auto; font-size:13px; color:var(--muted); font-weight:300; line-height:1.7">
+            <div id="synthese-completed">0 module(s) complété(s)</div>
+            <div id="synthese-reflections">0 réflexion(s) enregistrée(s)</div>
+          </div>
+        </div>
+
+        <div class="section-title">Mes Réflexions</div>
+        <div id="synthese-reflections-list"></div>
+
+        <div class="section-title">Exporter mes notes</div>
+        <p>Téléchargez l'ensemble de vos réflexions en format texte pour les conserver ou les partager.</p>
+        <button class="btn btn-primary" onclick="exportNotes()" style="margin-top:0.5rem">↳ Télécharger mes notes (.txt)</button>
+        <button class="btn btn-secondary" onclick="clearAll()" style="margin-left:1rem; margin-top:0.5rem">Réinitialiser la formation</button>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ── STATE ──
+const state = {
+  completed: new Set(JSON.parse(localStorage.getItem('ia-completed') || '[]')),
+  reflections: JSON.parse(localStorage.getItem('ia-reflections') || '{}')
+};
+
+const MODULES = ['m1','m2','m3','m4','m5'];
+
+const REFLECTION_LABELS = {
+  'r1-etatdeslieux': "État des lieux (Module 1)",
+  'r2-signaux': "Signaux faibles (Module 2)",
+  'r2-scenarios': "Analyse des scénarios (Module 2)",
+  'swot-s': "SWOT — Forces (Module 3)",
+  'swot-w': "SWOT — Faiblesses (Module 3)",
+  'swot-o': "SWOT — Opportunités (Module 3)",
+  'swot-t': "SWOT — Menaces (Module 3)",
+  'r3-vision': "Vision stratégique (Module 3)",
+  'mat-tl': "Matrice — Impact fort / Difficile (Module 3)",
+  'mat-tr': "Matrice — Impact fort / Facile (Module 3)",
+  'mat-bl': "Matrice — Impact faible / Difficile (Module 3)",
+  'mat-br': "Matrice — Impact faible / Facile (Module 3)",
+  'r3-ambassadeurs': "Ambassadeurs IA (Module 3)",
+  'r4-charte': "Charte d'usage (Module 4)",
+  'r4-integrite': "Intégrité académique (Module 4)",
+  'r5-engagement': "Engagement personnel (Module 5)"
+};
+
+const QUIZ_FEEDBACKS = {
+  q1: { ok: "Exact. Les recherches en sciences cognitives (ex. Sparrow et al.) montrent que déléguer trop tôt à l'IA peut réduire l'effort cognitif nécessaire à la mémorisation et à la compréhension profonde.", bad: "Pas tout à fait. Le risque principal identifié est l'atrophie cognitive : si l'IA fait le travail de penser à la place de l'élève, les apprentissages en profondeur sont compromis." },
+  q2: { ok: "Correct. L'AI Act classe dans la catégorie 'à risque élevé' les systèmes d'IA utilisés dans l'éducation pour évaluer, orienter ou décider de la situation des élèves. Cela implique des obligations strictes de transparence et de supervision humaine.", bad: "Non. L'AI Act classe ces systèmes en 'risque élevé', ce qui implique des obligations de transparence, d'auditabilité et de supervision humaine — mais ne les interdit pas." },
+  q3: { ok: "Très juste. La stratégie des pionniers (ou 'early adopters') est recommandée par les théories du changement d'Everett Rogers et des études sur la diffusion de l'innovation en milieu scolaire.", bad: "Cette approche présente des limites. Imposer crée des résistances, attendre paralyse, et déléguer entièrement fait perdre le leadership. La clé est d'identifier et de soutenir des pionniers qui entraînent par l'exemple." },
+  q4: { ok: "C'est la réponse la plus équilibrée. Elle respecte la relation de confiance avec l'enseignant tout en assumant votre responsabilité légale de chef d'établissement (responsable de traitement au sens RGPD).", bad: "Cette réponse pose problème. En tant que chef d'établissement, vous êtes responsable légal du traitement des données des élèves (RGPD). Un outil hébergé hors UE sans accord de traitement conforme vous expose juridiquement." }
+};
+
+// ── NAVIGATION ──
+function navigate(screen) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('screen-' + screen).classList.add('active');
+  const navItem = document.querySelector(`[data-screen="${screen}"]`);
+  if (navItem) navItem.classList.add('active');
+  restoreReflections();
+  if (screen === 'synthese') updateSynthese();
+  updateProgress();
+}
+
+function completeAndNavigate(module, next) {
+  state.completed.add(module);
+  localStorage.setItem('ia-completed', JSON.stringify([...state.completed]));
+  updateNavDots();
+  navigate(next);
+}
+
+// ── PROGRESS ──
+function updateProgress() {
+  const count = MODULES.filter(m => state.completed.has(m)).length;
+  const pct = Math.round((count / MODULES.length) * 100);
+  document.getElementById('global-progress').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = count + ' / ' + MODULES.length + ' modules';
+  updateNavDots();
+}
+
+function updateNavDots() {
+  MODULES.forEach(m => {
+    const item = document.querySelector(`[data-screen="${m}"]`);
+    if (!item) return;
+    if (state.completed.has(m)) {
+      item.classList.add('done');
+    } else {
+      item.classList.remove('done');
+    }
+  });
+}
+
+// ── REFLECTIONS ──
+function saveReflection(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  state.reflections[id] = el.value;
+  localStorage.setItem('ia-reflections', JSON.stringify(state.reflections));
+}
+
+function restoreReflections() {
+  Object.entries(state.reflections).forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (el) el.value = val;
+  });
+}
+
+function markSaved(btn) {
+  btn.textContent = '✓ Enregistré';
+  btn.classList.add('saved');
+  setTimeout(() => {
+    btn.textContent = '↳ Enregistrer';
+    btn.classList.remove('saved');
+  }, 2000);
+}
+
+// ── QUIZ ──
+function answerQuiz(option, isCorrect, qId) {
+  const container = option.closest('.quiz-container');
+  const options = container.querySelectorAll('.quiz-option');
+  options.forEach(o => o.style.pointerEvents = 'none');
+  if (isCorrect) {
+    option.classList.add('correct');
+  } else {
+    option.classList.add('wrong');
+    options.forEach(o => {
+      if (o.onclick && o.onclick.toString().includes('true')) {
+        o.classList.add('correct');
+      }
+    });
+  }
+  const fb = document.getElementById(qId + '-feedback');
+  if (fb) {
+    const data = QUIZ_FEEDBACKS[qId];
+    fb.textContent = isCorrect ? '✓ ' + data.ok : '✗ ' + data.bad;
+    fb.classList.add('show', isCorrect ? 'correct-fb' : 'wrong-fb');
+  }
+}
+
+// ── ACCORDION ──
+function toggleAccordion(item) {
+  item.classList.toggle('open');
+}
+
+// ── TABS ──
+function switchTab(pill, tabId) {
+  const container = pill.closest('.module-body') || pill.parentElement.parentElement;
+  pill.parentElement.querySelectorAll('.tab-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  const allTabs = document.querySelectorAll('.tab-content');
+  allTabs.forEach(t => {
+    if (t.id && ['tab-s1','tab-s2','tab-s3','tab-s4'].includes(t.id)) {
+      t.classList.remove('active');
+    }
+  });
+  const target = document.getElementById(tabId);
+  if (target) target.classList.add('active');
+}
+
+// ── SCENARIO ──
+const scenarios = [
+  {
+    name: "Résistance organisée",
+    desc: "Adoption lente et pilotage décentralisé : chaque enseignant explore à son rythme, sans cadre commun. Risque de fragmentation des pratiques et d'inégalités entre classes. Opportunité : expérimentations riches et diversifiées."
+  },
+  {
+    name: "Intégration pilotée",
+    desc: "Adoption lente mais pilotage fort : le MEN et les académies imposent un cadre progressif. Les établissements s'alignent méthodiquement. Risque de rigidité, mais garantie d'équité et de conformité."
+  },
+  {
+    name: "Révolution de terrain",
+    desc: "Adoption rapide et décentralisée : les enseignants et établissements innovent massivement en ordre dispersé. Énergie créatrice forte mais risque de non-conformité RGPD et d'inégalités territoriales."
+  },
+  {
+    name: "Transformation maîtrisée",
+    desc: "Adoption rapide avec pilotage fort : la puissance publique encadre une transformation accélérée. Résultats potentiels élevés, mais risque de technocratie éducative et de perte d'autonomie pédagogique."
+  }
+];
+
+function updateScenario() {
+  const adoption = parseInt(document.getElementById('axis-adoption').value);
+  const pilotage = parseInt(document.getElementById('axis-pilotage').value);
+  let idx = 0;
+  if (adoption < 50 && pilotage < 50) idx = 0;
+  else if (adoption < 50 && pilotage >= 50) idx = 1;
+  else if (adoption >= 50 && pilotage < 50) idx = 2;
+  else idx = 3;
+  document.getElementById('scenario-name').textContent = 'Scénario : ' + scenarios[idx].name;
+  document.getElementById('scenario-desc').textContent = scenarios[idx].desc;
+}
+
+// ── ACTION CHECKBOXES ──
+function toggleAction(checkbox, counterId) {
+  checkbox.classList.toggle('checked');
+  const section = checkbox.closest('.action-plan');
+  const count = section.querySelectorAll('.action-checkbox.checked').length;
+  const total = section.querySelectorAll('.action-checkbox').length;
+  document.getElementById(counterId).textContent = count + ' / ' + total + ' sélectionnée(s)';
+}
+
+// ── SYNTHESE ──
+function updateSynthese() {
+  const count = MODULES.filter(m => state.completed.has(m)).length;
+  const pct = Math.round((count / MODULES.length) * 100);
+  const circ = 163.4;
+  const offset = circ - (pct / 100) * circ;
+  document.getElementById('progress-ring-circle').style.strokeDashoffset = offset;
+  document.getElementById('ring-percent').textContent = pct + '%';
+  document.getElementById('synthese-completed').textContent = count + ' module(s) complété(s)';
+  const refCount = Object.values(state.reflections).filter(v => v.trim()).length;
+  document.getElementById('synthese-reflections').textContent = refCount + ' réflexion(s) enregistrée(s)';
+
+  const list = document.getElementById('synthese-reflections-list');
+  list.innerHTML = '';
+  const entries = Object.entries(state.reflections).filter(([,v]) => v.trim());
+  if (entries.length === 0) {
+    list.innerHTML = '<p style="color:var(--muted); font-style:italic; font-size:13px">Aucune réflexion enregistrée pour l\'instant. Parcourez les modules et utilisez les zones de texte pour construire votre profil stratégique.</p>';
+    return;
+  }
+  entries.forEach(([id, val]) => {
+    const label = REFLECTION_LABELS[id] || id;
+    const block = document.createElement('div');
+    block.style.cssText = 'margin-bottom:1.25rem; background:var(--cream); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;';
+    block.innerHTML = `
+      <div style="padding:0.75rem 1.25rem; background:var(--indigo); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; color:rgba(255,255,255,0.85)">${label}</div>
+      <div style="padding:1rem 1.25rem; font-size:13.5px; font-weight:300; line-height:1.7; white-space:pre-wrap; color:#2a2520">${val}</div>
+    `;
+    list.appendChild(block);
+  });
+}
+
+// ── EXPORT ──
+function exportNotes() {
+  const lines = ['FORMATION — STRATÉGIE & PROSPECTIVE AVEC L\'IA', 'Chefs d\'Établissement', '='.repeat(50), ''];
+  const entries = Object.entries(state.reflections).filter(([,v]) => v.trim());
+  if (entries.length === 0) { alert('Aucune note à exporter.'); return; }
+  entries.forEach(([id, val]) => {
+    const label = REFLECTION_LABELS[id] || id;
+    lines.push('── ' + label.toUpperCase());
+    lines.push(val);
+    lines.push('');
+  });
+  lines.push('='.repeat(50));
+  lines.push('Exporté le ' + new Date().toLocaleDateString('fr-FR'));
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'formation-ia-mes-notes.txt';
+  a.click();
+}
+
+function clearAll() {
+  if (!confirm('Réinitialiser toute la formation ? Toutes vos notes seront effacées.')) return;
+  localStorage.removeItem('ia-completed');
+  localStorage.removeItem('ia-reflections');
+  state.completed.clear();
+  Object.keys(state.reflections).forEach(k => delete state.reflections[k]);
+  navigate('welcome');
+}
+
+// ── INIT ──
+restoreReflections();
+updateProgress();
+updateScenario();
+</script>
+</body>
+</html>
