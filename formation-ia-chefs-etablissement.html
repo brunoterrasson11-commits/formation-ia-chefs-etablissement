@@ -132,8 +132,171 @@
   /* ── LAYOUT ── */
   .app-layout {
     display: grid;
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 260px 1fr 288px;
     min-height: calc(100vh - 64px);
+  }
+
+  /* ── RIGHT PANEL ── */
+  .right-panel {
+    background: #FAFAFA;
+    border-left: 1px solid var(--border);
+    padding: 1.5rem 1.25rem;
+    position: sticky;
+    top: 64px;
+    height: calc(100vh - 64px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .rp-section { display: none; flex-direction: column; gap: 0.875rem; }
+  .rp-section.active { display: flex; }
+
+  .rp-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .rp-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    color: var(--purple);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .rp-value {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--purple-dark);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .rp-sub {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* Slider widget */
+  .rp-slider-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .rp-slider {
+    width: 100%;
+    accent-color: var(--purple);
+    cursor: pointer;
+    height: 4px;
+    margin: 6px 0 2px;
+  }
+
+  .rp-slider-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--purple-dark);
+    text-align: right;
+    margin-top: 2px;
+  }
+
+  /* Checklist widget */
+  .rp-checklist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+
+  .rp-check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text);
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .rp-check-item input[type="checkbox"] {
+    accent-color: var(--purple);
+    margin-top: 1px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .rp-check-item.done span { text-decoration: line-through; color: var(--muted); }
+
+  /* Note widget */
+  .rp-note {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 0.75rem;
+    font-size: 12px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    resize: vertical;
+    min-height: 72px;
+    color: var(--text);
+    background: #FAFAFA;
+    line-height: 1.6;
+    box-sizing: border-box;
+  }
+
+  .rp-note:focus { outline: none; border-color: var(--purple); background: #fff; }
+
+  /* Progress bar widget */
+  .rp-bar-wrap {
+    background: var(--border);
+    border-radius: 20px;
+    height: 6px;
+    margin: 6px 0 4px;
+    overflow: hidden;
+  }
+
+  .rp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--purple) 0%, var(--purple-light) 100%);
+    border-radius: 20px;
+    transition: width 0.4s ease;
+  }
+
+  /* Pill select */
+  .rp-pills { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
+
+  .rp-pill {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    color: var(--muted);
+    background: #fff;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .rp-pill.active {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* Scenario bars */
+  .rp-scenario { margin-bottom: 0.6rem; }
+  .rp-scenario-label { font-size: 10px; color: var(--muted); margin-bottom: 3px; display:flex; justify-content: space-between; }
+  .rp-scenario-label span { font-weight: 600; color: var(--purple-dark); }
+
+  @media (max-width: 1100px) {
+    .app-layout { grid-template-columns: 260px 1fr; }
+    .right-panel { display: none; }
   }
 
   /* ── SIDEBAR ── */
@@ -3051,6 +3214,223 @@ Contraintes :
     </div>
 
   </main>
+
+  <!-- ══ RIGHT PANEL ══ -->
+  <aside class="right-panel" id="rightPanel">
+
+    <!-- M1 : Comprendre l'IA -->
+    <div class="rp-section" data-module="m1">
+      <div class="rp-card">
+        <div class="rp-label">🎯 Maturité IA perçue</div>
+        <input type="range" class="rp-slider" id="rp-m1-maturite" min="1" max="5" value="2" oninput="rpSliderUpdate('rp-m1-maturite','rp-m1-maturite-val'); rpSave('m1')">
+        <div class="rp-slider-val" id="rp-m1-maturite-val">2 / 5</div>
+        <div class="rp-slider-row"><span>Débutant</span><span>Expert</span></div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">🛠 Outils IA déjà présents</div>
+        <div class="rp-value" id="rp-m1-outils-count">0</div>
+        <div class="rp-sub">identifiés dans mon établissement</div>
+        <div style="display:flex;gap:6px;margin-top:8px;">
+          <button onclick="rpCounter('rp-m1-outils-count',-1,'m1')" style="flex:1;padding:4px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-size:16px;color:var(--purple)">−</button>
+          <button onclick="rpCounter('rp-m1-outils-count',1,'m1')" style="flex:1;padding:4px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-size:16px;color:var(--purple)">+</button>
+        </div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">✅ Points clés à retenir</div>
+        <ul class="rp-checklist">
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m1')"><input type="checkbox"><span>L'IA n'est pas neutre (biais)</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m1')"><input type="checkbox"><span>Différencier IA générative / prédictive</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m1')"><input type="checkbox"><span>AI Act : risque élevé en éducation</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m1')"><input type="checkbox"><span>État des lieux réalisé</span></li>
+        </ul>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">📝 Note rapide</div>
+        <textarea class="rp-note" id="rp-m1-note" placeholder="Mes observations clés…" oninput="rpSave('m1')"></textarea>
+      </div>
+    </div>
+
+    <!-- M2 : Prospective -->
+    <div class="rp-section" data-module="m2">
+      <div class="rp-card">
+        <div class="rp-label">📊 Probabilité des scénarios</div>
+        <div class="rp-scenario">
+          <div class="rp-scenario-label">Pessimiste <span id="rp-m2-s1-val">30%</span></div>
+          <input type="range" class="rp-slider" id="rp-m2-s1" min="0" max="100" value="30" oninput="rpPercentUpdate('rp-m2-s1','rp-m2-s1-val'); rpSave('m2')">
+        </div>
+        <div class="rp-scenario">
+          <div class="rp-scenario-label">Tendanciel <span id="rp-m2-s2-val">50%</span></div>
+          <input type="range" class="rp-slider" id="rp-m2-s2" min="0" max="100" value="50" oninput="rpPercentUpdate('rp-m2-s2','rp-m2-s2-val'); rpSave('m2')">
+        </div>
+        <div class="rp-scenario">
+          <div class="rp-scenario-label">Volontariste <span id="rp-m2-s3-val">20%</span></div>
+          <input type="range" class="rp-slider" id="rp-m2-s3" min="0" max="100" value="20" oninput="rpPercentUpdate('rp-m2-s3','rp-m2-s3-val'); rpSave('m2')">
+        </div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">⏳ Horizon de projection</div>
+        <input type="range" class="rp-slider" id="rp-m2-horizon" min="1" max="7" value="3" oninput="rpHorizonUpdate(); rpSave('m2')">
+        <div class="rp-slider-val" id="rp-m2-horizon-val">3 ans</div>
+        <div class="rp-slider-row"><span>1 an</span><span>7 ans</span></div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">📡 Signaux faibles captés</div>
+        <div class="rp-value" id="rp-m2-signaux-count">0</div>
+        <div class="rp-sub">dans mon territoire</div>
+        <div style="display:flex;gap:6px;margin-top:8px;">
+          <button onclick="rpCounter('rp-m2-signaux-count',-1,'m2')" style="flex:1;padding:4px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-size:16px;color:var(--purple)">−</button>
+          <button onclick="rpCounter('rp-m2-signaux-count',1,'m2')" style="flex:1;padding:4px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-size:16px;color:var(--purple)">+</button>
+        </div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">📝 Note rapide</div>
+        <textarea class="rp-note" id="rp-m2-note" placeholder="Mes hypothèses territoriales…" oninput="rpSave('m2')"></textarea>
+      </div>
+    </div>
+
+    <!-- M3 : Stratégie -->
+    <div class="rp-section" data-module="m3">
+      <div class="rp-card">
+        <div class="rp-label">🔲 Avancement SWOT</div>
+        <ul class="rp-checklist">
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m3')"><input type="checkbox"><span>Forces identifiées</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m3')"><input type="checkbox"><span>Faiblesses reconnues</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m3')"><input type="checkbox"><span>Opportunités listées</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m3')"><input type="checkbox"><span>Menaces anticipées</span></li>
+        </ul>
+        <div class="rp-bar-wrap" style="margin-top:10px;"><div class="rp-bar-fill" id="rp-m3-swot-bar" style="width:0%"></div></div>
+        <div class="rp-sub" id="rp-m3-swot-pct" style="margin-top:4px;">0 / 4 complétés</div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">🎯 Maturité stratégique</div>
+        <input type="range" class="rp-slider" id="rp-m3-maturite" min="1" max="5" value="2" oninput="rpSliderUpdate('rp-m3-maturite','rp-m3-maturite-val'); rpSave('m3')">
+        <div class="rp-slider-val" id="rp-m3-maturite-val">2 / 5</div>
+        <div class="rp-slider-row"><span>Aucune vision</span><span>Vision claire</span></div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">⚡ Mes 3 leviers prioritaires</div>
+        <textarea class="rp-note" id="rp-m3-leviers" placeholder="1. …&#10;2. …&#10;3. …" oninput="rpSave('m3')" style="min-height:80px;"></textarea>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">📝 Note rapide</div>
+        <textarea class="rp-note" id="rp-m3-note" placeholder="Ma vision stratégique en une phrase…" oninput="rpSave('m3')"></textarea>
+      </div>
+    </div>
+
+    <!-- M4 : Gouvernance & RH -->
+    <div class="rp-section" data-module="m4">
+      <div class="rp-card">
+        <div class="rp-label">✅ Checklist gouvernance</div>
+        <ul class="rp-checklist">
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m4')"><input type="checkbox"><span>Charte d'usage IA rédigée</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m4')"><input type="checkbox"><span>RGPD : DPO identifié</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m4')"><input type="checkbox"><span>Intégrité académique définie</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m4')"><input type="checkbox"><span>Scénarios RH testés</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'m4')"><input type="checkbox"><span>Grille recrutement prête</span></li>
+        </ul>
+        <div class="rp-bar-wrap" style="margin-top:10px;"><div class="rp-bar-fill" id="rp-m4-gov-bar" style="width:0%"></div></div>
+        <div class="rp-sub" id="rp-m4-gov-pct" style="margin-top:4px;">0 / 5 complétés</div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">⚠️ Niveau de risque perçu</div>
+        <input type="range" class="rp-slider" id="rp-m4-risque" min="1" max="5" value="3" oninput="rpRisqueUpdate(); rpSave('m4')">
+        <div class="rp-slider-val" id="rp-m4-risque-val" style="color:#b83c3c;">3 / 5 — Modéré</div>
+        <div class="rp-slider-row"><span>Faible</span><span>Critique</span></div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">👥 Postes RH à sécuriser</div>
+        <div class="rp-value" id="rp-m4-postes-count">0</div>
+        <div class="rp-sub">postes identifiés comme critiques</div>
+        <div style="display:flex;gap:6px;margin-top:8px;">
+          <button onclick="rpCounter('rp-m4-postes-count',-1,'m4')" style="flex:1;padding:4px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-size:16px;color:var(--purple)">−</button>
+          <button onclick="rpCounter('rp-m4-postes-count',1,'m4')" style="flex:1;padding:4px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-size:16px;color:var(--purple)">+</button>
+        </div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">📝 Note rapide</div>
+        <textarea class="rp-note" id="rp-m4-note" placeholder="Décisions RH prioritaires…" oninput="rpSave('m4')"></textarea>
+      </div>
+    </div>
+
+    <!-- M5 : Plan d'action -->
+    <div class="rp-section" data-module="m5">
+      <div class="rp-card">
+        <div class="rp-label">⚡ Actions cochées</div>
+        <div class="rp-value" id="rp-m5-actions-count">0</div>
+        <div class="rp-sub" id="rp-m5-actions-sub">sur 0 actions planifiées</div>
+        <div class="rp-bar-wrap" style="margin-top:8px;"><div class="rp-bar-fill" id="rp-m5-actions-bar" style="width:0%"></div></div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">📅 Horizon prioritaire</div>
+        <div class="rp-pills">
+          <div class="rp-pill active" id="rp-m5-pill-court" onclick="rpPillSelect('m5','horizon',this)">Court terme</div>
+          <div class="rp-pill" id="rp-m5-pill-moyen" onclick="rpPillSelect('m5','horizon',this)">Moyen terme</div>
+          <div class="rp-pill" id="rp-m5-pill-long" onclick="rpPillSelect('m5','horizon',this)">Long terme</div>
+        </div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">🎯 Mon premier engagement</div>
+        <textarea class="rp-note" id="rp-m5-engagement" placeholder="Action concrète dès demain…" oninput="rpSave('m5')" style="min-height:72px;"></textarea>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">📝 Note rapide</div>
+        <textarea class="rp-note" id="rp-m5-note" placeholder="Points d'attention pour la mise en œuvre…" oninput="rpSave('m5')"></textarea>
+      </div>
+    </div>
+
+    <!-- Synthèse -->
+    <div class="rp-section" data-module="synthese">
+      <div class="rp-card">
+        <div class="rp-label">🏆 Progression globale</div>
+        <div class="rp-value" id="rp-syn-modules">0/5</div>
+        <div class="rp-sub">modules complétés</div>
+        <div class="rp-bar-wrap" style="margin-top:8px;"><div class="rp-bar-fill" id="rp-syn-bar" style="width:0%"></div></div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">📋 Réflexions enregistrées</div>
+        <div class="rp-value" id="rp-syn-reflections">0</div>
+        <div class="rp-sub">notes sauvegardées</div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">🔲 Axes tableau de bord</div>
+        <ul class="rp-checklist">
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'synthese')"><input type="checkbox"><span>Axe 1 — Positionnement</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'synthese')"><input type="checkbox"><span>Axe 2 — Prospective</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'synthese')"><input type="checkbox"><span>Axe 3 — Finances</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'synthese')"><input type="checkbox"><span>Axe 4 — RH</span></li>
+          <li class="rp-check-item" onclick="rpToggleCheck(this,'synthese')"><input type="checkbox"><span>Axe 5 — Veille</span></li>
+        </ul>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">📥 Export rapide</div>
+        <button onclick="exportNotes()" style="width:100%;padding:8px;background:var(--purple);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;">↳ Télécharger mes notes</button>
+      </div>
+    </div>
+
+    <!-- Welcome -->
+    <div class="rp-section active" data-module="welcome">
+      <div class="rp-card">
+        <div class="rp-label">📍 Comment démarrer</div>
+        <p style="font-size:12px;line-height:1.7;color:var(--text);margin:0;">Cliquez sur un module dans la liste ou sur le bouton "Commencer la formation". Chaque module contient des contenus, des activités pratiques et des prompts à copier.</p>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">⏱ Durée estimée</div>
+        <div class="rp-value">5h</div>
+        <div class="rp-sub">pour les 5 modules complets</div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-label">💡 Outils recommandés</div>
+        <ul style="margin:0;padding-left:1rem;font-size:12px;line-height:2;color:var(--text);">
+          <li>Claude / ChatGPT / Gemini</li>
+          <li>Perplexity / Comet</li>
+          <li>NotebookLM</li>
+          <li>Napkin / Canva</li>
+        </ul>
+      </div>
+    </div>
+
+  </aside>
+
 </div>
 
 <script>
@@ -3088,6 +3468,153 @@ const QUIZ_FEEDBACKS = {
   q4: { ok: "C'est la réponse la plus équilibrée. Elle respecte la relation de confiance avec l'enseignant tout en assumant votre responsabilité légale de chef d'établissement (responsable de traitement au sens RGPD).", bad: "Cette réponse pose problème. En tant que chef d'établissement, vous êtes responsable légal du traitement des données des élèves (RGPD). Un outil hébergé hors UE sans accord de traitement conforme vous expose juridiquement." }
 };
 
+// ── RIGHT PANEL ──
+function rpShowSection(moduleId) {
+  document.querySelectorAll('.rp-section').forEach(s => s.classList.remove('active'));
+  const sec = document.querySelector(`.rp-section[data-module="${moduleId}"]`);
+  if (sec) sec.classList.add('active');
+  if (moduleId === 'synthese') rpUpdateSynthese();
+  if (moduleId === 'm5') rpUpdateActions();
+}
+
+function rpSliderUpdate(sliderId, valId) {
+  const v = document.getElementById(sliderId).value;
+  document.getElementById(valId).textContent = v + ' / 5';
+}
+
+function rpPercentUpdate(sliderId, valId) {
+  document.getElementById(valId).textContent = document.getElementById(sliderId).value + '%';
+}
+
+function rpHorizonUpdate() {
+  const v = document.getElementById('rp-m2-horizon').value;
+  document.getElementById('rp-m2-horizon-val').textContent = v + ' an' + (v > 1 ? 's' : '');
+}
+
+function rpRisqueUpdate() {
+  const v = parseInt(document.getElementById('rp-m4-risque').value);
+  const labels = ['','Faible','Limité','Modéré','Élevé','Critique'];
+  const colors = ['','#2ea06e','#5a9a2e','#b87d3c','#b85a3c','#b83c3c'];
+  const el = document.getElementById('rp-m4-risque-val');
+  el.textContent = v + ' / 5 — ' + labels[v];
+  el.style.color = colors[v];
+}
+
+function rpCounter(id, delta, moduleId) {
+  const el = document.getElementById(id);
+  const val = Math.max(0, parseInt(el.textContent) + delta);
+  el.textContent = val;
+  rpSave(moduleId);
+}
+
+function rpToggleCheck(item, moduleId) {
+  const cb = item.querySelector('input[type="checkbox"]');
+  cb.checked = !cb.checked;
+  item.classList.toggle('done', cb.checked);
+  // update progress bars
+  const section = item.closest('.rp-section');
+  const checks = section.querySelectorAll('.rp-check-item input[type="checkbox"]');
+  const done = [...checks].filter(c => c.checked).length;
+  const barId = section.dataset.module === 'm3' ? 'rp-m3-swot-bar' :
+                section.dataset.module === 'm4' ? 'rp-m4-gov-bar' : null;
+  const pctId = section.dataset.module === 'm3' ? 'rp-m3-swot-pct' :
+                section.dataset.module === 'm4' ? 'rp-m4-gov-pct' : null;
+  if (barId) document.getElementById(barId).style.width = (done / checks.length * 100) + '%';
+  if (pctId) document.getElementById(pctId).textContent = done + ' / ' + checks.length + ' complétés';
+  rpSave(moduleId);
+}
+
+function rpPillSelect(moduleId, group, pill) {
+  const container = pill.closest('.rp-pills');
+  container.querySelectorAll('.rp-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  rpSave(moduleId);
+}
+
+function rpUpdateActions() {
+  const total = document.querySelectorAll('.action-checkbox').length;
+  const done = document.querySelectorAll('.action-checkbox.checked').length;
+  const pct = total > 0 ? Math.round(done / total * 100) : 0;
+  const countEl = document.getElementById('rp-m5-actions-count');
+  const subEl = document.getElementById('rp-m5-actions-sub');
+  const barEl = document.getElementById('rp-m5-actions-bar');
+  if (countEl) countEl.textContent = done;
+  if (subEl) subEl.textContent = 'sur ' + total + ' actions planifiées';
+  if (barEl) barEl.style.width = pct + '%';
+}
+
+function rpUpdateSynthese() {
+  const completed = state.completed.size;
+  const reflections = Object.values(state.reflections).filter(v => v && v.trim()).length;
+  const modEl = document.getElementById('rp-syn-modules');
+  const refEl = document.getElementById('rp-syn-reflections');
+  const barEl = document.getElementById('rp-syn-bar');
+  if (modEl) modEl.textContent = completed + '/5';
+  if (refEl) refEl.textContent = reflections;
+  if (barEl) barEl.style.width = (completed / 5 * 100) + '%';
+}
+
+let rpSaveTimer;
+function rpSave(moduleId) {
+  clearTimeout(rpSaveTimer);
+  rpSaveTimer = setTimeout(() => {
+    const data = {};
+    const section = document.querySelector(`.rp-section[data-module="${moduleId}"]`);
+    if (!section) return;
+    section.querySelectorAll('input[type=range]').forEach(el => data[el.id] = el.value);
+    section.querySelectorAll('textarea').forEach(el => data[el.id] = el.value);
+    section.querySelectorAll('[id$="-count"]').forEach(el => data[el.id] = el.textContent);
+    section.querySelectorAll('.rp-check-item input').forEach(el => data[el.closest('.rp-check-item').querySelector('span').textContent] = el.checked);
+    section.querySelectorAll('.rp-pill.active').forEach(el => data['pill_' + moduleId] = el.textContent);
+    localStorage.setItem('rp_' + moduleId, JSON.stringify(data));
+  }, 350);
+}
+
+function rpRestore() {
+  ['m1','m2','m3','m4','m5','synthese'].forEach(moduleId => {
+    const raw = localStorage.getItem('rp_' + moduleId);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    const section = document.querySelector(`.rp-section[data-module="${moduleId}"]`);
+    if (!section) return;
+    Object.entries(data).forEach(([key, val]) => {
+      const el = document.getElementById(key);
+      if (el && el.tagName === 'INPUT' && el.type === 'range') {
+        el.value = val;
+        el.dispatchEvent(new Event('input'));
+      } else if (el && el.tagName === 'TEXTAREA') {
+        el.value = val;
+      } else if (el) {
+        el.textContent = val;
+      } else {
+        // checkbox by label
+        section.querySelectorAll('.rp-check-item').forEach(item => {
+          if (item.querySelector('span').textContent === key) {
+            const cb = item.querySelector('input');
+            cb.checked = val === true || val === 'true';
+            item.classList.toggle('done', cb.checked);
+          }
+        });
+        // pill
+        if (key.startsWith('pill_')) {
+          section.querySelectorAll('.rp-pill').forEach(p => {
+            p.classList.toggle('active', p.textContent === val);
+          });
+        }
+      }
+    });
+    // restore progress bars
+    const checks = section.querySelectorAll('.rp-check-item input[type="checkbox"]');
+    if (checks.length) {
+      const done = [...checks].filter(c => c.checked).length;
+      const barId = moduleId === 'm3' ? 'rp-m3-swot-bar' : moduleId === 'm4' ? 'rp-m4-gov-bar' : null;
+      const pctId = moduleId === 'm3' ? 'rp-m3-swot-pct' : moduleId === 'm4' ? 'rp-m4-gov-pct' : null;
+      if (barId) document.getElementById(barId).style.width = (done / checks.length * 100) + '%';
+      if (pctId) document.getElementById(pctId).textContent = done + ' / ' + checks.length + ' complétés';
+    }
+  });
+}
+
 // ── NAVIGATION ──
 function navigate(screen) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -3098,6 +3625,7 @@ function navigate(screen) {
   restoreReflections();
   if (screen === 'synthese') updateSynthese();
   updateProgress();
+  rpShowSection(screen);
 }
 
 function completeAndNavigate(module, next) {
@@ -3314,6 +3842,7 @@ function clearAll() {
 restoreReflections();
 updateProgress();
 updateScenario();
+rpRestore();
 </script>
 </body>
 </html>
