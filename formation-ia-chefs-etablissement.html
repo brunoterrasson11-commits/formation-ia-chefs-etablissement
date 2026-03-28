@@ -917,29 +917,38 @@
   .welcome-modules {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(255,255,255,0.1);
+    gap: 2px;
+    background: rgba(255,255,255,0.2);
     margin-bottom: 2.5rem;
     text-align: left;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.25);
   }
 
   .welcome-module {
-    background: rgba(255,255,255,0.03);
-    padding: 1rem;
-    backdrop-filter: blur(4px);
+    background: rgba(255,255,255,0.12);
+    padding: 1.4rem 1.25rem;
+    backdrop-filter: blur(8px);
+    transition: background 0.2s;
+  }
+
+  .welcome-module:hover {
+    background: rgba(255,255,255,0.2);
   }
 
   .welcome-module-num {
     font-family: 'Courier New', monospace;
     font-size: 10px;
-    color: rgba(255,255,255,0.55);
-    margin-bottom: 0.4rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
   }
 
   .welcome-module-name {
-    font-size: 12px;
-    font-weight: 400;
-    color: rgba(255,255,255,0.8);
+    font-size: 13px;
+    font-weight: 600;
+    color: #FFFFFF;
     line-height: 1.4;
   }
 
