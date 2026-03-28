@@ -2723,6 +2723,126 @@ Ne propose pas de classement automatique.</div>
           </div>
         </div>
 
+        <!-- ── VEILLE STRATÉGIQUE : ACTIVITÉ PRATIQUE ── -->
+        <div class="section-title">🔍 Activité pratique — Veille stratégique et prospection intelligente</div>
+
+        <div class="activity-intro">
+          <div class="obj-label">Objectif stratégique</div>
+          Mettre en place une veille ciblée, utile à la prise de décision. <strong>« S'informer n'aide pas à décider. Seuls les signaux pertinents le font. »</strong>
+          <br><br>
+          <em>Règle d'or : une veille = un enjeu = une décision possible. Si on veut tout surveiller, on ne surveillera rien.</em>
+        </div>
+
+        <div class="card-grid" style="margin-bottom:1.5rem;">
+          <div class="card">
+            <div class="card-icon">📰</div>
+            <div class="card-title">Information</div>
+            <div class="card-text">Brute, abondante, peu actionnable.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">📡</div>
+            <div class="card-title">Signal faible</div>
+            <div class="card-text">Récurrent, émergent, encore incertain. À surveiller.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚡</div>
+            <div class="card-title">Décision</div>
+            <div class="card-text">Choix à trancher, opportunité à saisir, risque à anticiper.</div>
+          </div>
+        </div>
+
+        <p style="margin-bottom:1.5rem;">Choisissez <strong>un seul enjeu</strong> parmi : filières / carte des formations · partenariats (entreprises, institutions) · financements / appels à projets · innovations pédagogiques.</p>
+
+        <div class="prompt-section">
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 1 — Cadrage de la veille par enjeu</span>
+              <span class="prompt-block-tool">ChatGPT · Claude · Gemini</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-veille-1">Tu es un expert en veille stratégique pour dirigeants.
+
+Contexte : Je suis chef d'établissement scolaire.
+
+Enjeu prioritaire : [ex : développement de nouvelles filières / partenariats / financements]
+
+Objectif : Définir un dispositif de veille utile à la prise de décision.
+
+Consignes :
+- Identifier les types de signaux à surveiller
+- Préciser les sources pertinentes (sites, revues, réseaux, acteurs-clés)
+- Indiquer ce qui relève de l'information inutile à écarter
+
+Format : Synthèse claire, orientée décision.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-veille-1', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 2 — Analyse automatisée des sources</span>
+              <span class="prompt-block-tool">Comet</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-veille-2">Analyse les sources suivantes en lien avec l'enjeu :
+[Coller ici les URLs ciblées ou les mots-clés de recherche]
+
+Objectif : Identifier des signaux faibles pertinents pour un chef d'établissement.
+
+Consignes :
+- Repérer les tendances émergentes
+- Identifier les opportunités potentielles
+- Distinguer les informations structurantes du bruit
+
+Restitution attendue : Liste de signaux faibles commentés, avec source.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-veille-2', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 3 — Transformation de la veille en opportunités</span>
+              <span class="prompt-block-tool">ChatGPT · Claude</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-veille-3">À partir des signaux faibles suivants :
+[Coller ici les signaux identifiés avec le Prompt 2]
+
+Analyse :
+- Quelles opportunités stratégiques cela peut ouvrir
+- Quels risques doivent être anticipés
+- Quelles décisions pourraient être envisagées
+
+Objectif : Transformer la veille en aide à la décision.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-veille-3', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt bonus — Mise en lien avec les priorités internes</span>
+              <span class="prompt-block-tool">NotebookLM</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-veille-4">À partir des documents fournis (projet d'établissement, contrat d'objectifs, orientations réseau) :
+- Mets en relation les signaux issus de la veille avec nos priorités stratégiques
+- Identifie les convergences et les décalages
+- Signale les opportunités réalistes à court ou moyen terme
+
+Ne produis aucune recommandation générique.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-veille-4', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout success">
+          <div class="callout-title">Livrable attendu — Tableau de veille stratégique</div>
+          <p>Enjeu stratégique suivi · sources ciblées · signaux faibles à surveiller · décisions potentielles associées.</p>
+          <p style="margin-top:0.75rem; font-size:13px; opacity:0.85;">Alimente l'<strong>axe n°5 – Veille & opportunités</strong> de votre tableau de bord : capteurs activés · opportunités détectées · risques anticipés.</p>
+        </div>
+
         <div class="section-title">Mon engagement personnel</div>
 
         <div class="reflection-box">
