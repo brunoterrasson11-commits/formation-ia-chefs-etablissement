@@ -2360,6 +2360,115 @@ Principe 3 : …" oninput="saveReflection('r4-charte')"></textarea>
           <button class="save-btn" onclick="markSaved(this)">↳ Enregistrer</button>
         </div>
 
+        <!-- ── PILOTAGE RH : ACTIVITÉ PRATIQUE ── -->
+        <div class="section-title">🧑‍🏫 Activité pratique — Pilotage RH et organisationnel</div>
+
+        <div class="activity-intro">
+          <div class="obj-label">Objectif stratégique</div>
+          Utiliser l'IA comme outil d'aide à la décision RH. <strong>« L'IA n'a pas de conscience, pas de responsabilité et pas de légitimité RH. »</strong>
+          <br><br>
+          <em>Principes : l'IA n'évalue pas des personnes — elle raisonne sur des situations, des charges, des organisations — toute décision RH reste humaine, politique et assumée.</em>
+        </div>
+
+        <div class="card-grid" style="margin-bottom:1.5rem;">
+          <div class="card">
+            <div class="card-icon">✅</div>
+            <div class="card-title">Où l'IA est pertinente</div>
+            <div class="card-text">Analyse de charge globale (heures, groupes, options) · Simulation de scénarios organisationnels · Anticipation de tensions structurelles.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚠️</div>
+            <div class="card-title">Où elle est dangereuse</div>
+            <div class="card-text">Classement des individus · Recommandations normatives · Automatisation de décisions humaines.</div>
+          </div>
+        </div>
+
+        <p style="margin-bottom:1.5rem;"><strong>Modalité :</strong> Travail en sous-groupes de 3 chefs d'établissement sur des cas réels. Objectif : comparer plusieurs scénarios RH, pas en trouver un parfait. <em>« L'IA voit des systèmes. Les humains vivent les conséquences. »</em></p>
+
+        <div class="prompt-section">
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 1 — Cartographie RH et organisationnelle</span>
+              <span class="prompt-block-tool">Claude</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-rh-1">Tu es un expert en organisation scolaire et pilotage RH.
+
+Contexte :
+- Je suis chef d'établissement
+- Je souhaite analyser mon organisation RH sans évaluer des personnes
+
+Données de départ :
+- Structure pédagogique : [coller ou décrire brièvement]
+- Contraintes connues : [statuts, horaires, options, filières]
+- Difficultés actuelles perçues : [décrire]
+
+Objectif : Produire une lecture organisationnelle et non individuelle.
+
+Consignes :
+- Identifier les zones de surcharge ou de fragilité structurelle
+- Mettre en évidence les dépendances critiques
+- Ne jamais porter de jugement sur les personnes
+
+Format : Analyse structurée, claire et prudente.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-rh-1', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 2 — Génération de scénarios RH</span>
+              <span class="prompt-block-tool">Claude · ChatGPT</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-rh-2">À partir de l'analyse organisationnelle suivante :
+[Coller ici l'analyse du Prompt 1]
+
+Construis trois scénarios RH plausibles :
+1. Scénario de départ non remplacé
+2. Scénario de création de poste ou redéploiement
+3. Scénario de réorganisation pédagogique
+
+Pour chaque scénario :
+- Décrire l'impact organisationnel
+- Identifier les gains et les tensions
+- Préciser les conditions de réussite
+
+Consignes : Aucune recommandation morale. Aucun jugement individuel.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-rh-2', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-block-header">
+              <span class="prompt-block-title">Prompt 3 — Comparaison et arbitrage RH</span>
+              <span class="prompt-block-tool">Claude · ChatGPT</span>
+            </div>
+            <div class="prompt-block-body" id="prompt-rh-3">Compare les trois scénarios RH suivants :
+[Coller ici les 3 scénarios du Prompt 2]
+
+Objectif : Aider un chef d'établissement à arbitrer.
+
+Attendus :
+- Avantages et risques de chaque scénario
+- Impacts à court et moyen terme
+- Points de vigilance humains et organisationnels
+
+Contrainte : Ne propose pas un scénario idéal unique.</div>
+            <div class="prompt-block-footer">
+              <button class="copy-btn" onclick="copyPrompt('prompt-rh-3', this)">⎘ Copier le prompt</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout success">
+          <div class="callout-title">Livrable attendu — Scénario RH argumenté (Napkin / NotebookLM)</div>
+          <p>Chaque groupe produit : <strong>1 scénario RH prioritaire</strong> · une justification avec raisons organisationnelles, risques humains et limites de l'analyse IA.</p>
+          <p style="margin-top:0.75rem; font-size:13px; opacity:0.85;">Alimente l'<strong>axe n°4 – RH & organisation</strong> de votre tableau de bord : scénarios testés · choix retenu · points de vigilance.</p>
+        </div>
+
       </div>
       <div class="module-nav">
         <button class="btn btn-secondary" onclick="navigate('m3')">← Module 03</button>
